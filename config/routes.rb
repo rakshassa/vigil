@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :menus do
     collection do
       get :dash
+      get :wilderness
     end
   end
 
