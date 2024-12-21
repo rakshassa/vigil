@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="d-flex justify-content-center">
+    <span class="text-span status-span">
+      <b>HP:</b>
+      <%= "#{@player.currenthp}/#{@player.maxhp}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <b>Backstabs:</b>
+      <%= "#{@player.skills}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <b>Attack:</b>
+      <%= "#{@player.min_damage}-#{@player.max_damage}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <b>Defense:</b>
+      <%= "#{@player.effective_defense}" %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="d-flex justify-content-center">
+    <span class="text-span status-span">
+      <b>Gold:</b>
+      <%= "#{@player.gold}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <b>Gems:</b>
+      <%= "#{@player.gems}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <span class="badge badge-pill bg-success top_label_badge">Weapon</span>
+      <%= "#{@player.weapon.name}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <span class="badge badge-pill bg-success top_label_badge">Armor</span>
+      <%= "#{@player.armor.name}" %>
+    </span>
+  </div>
+</div>

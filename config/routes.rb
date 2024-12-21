@@ -10,5 +10,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :fights do
+    member do
+      get :run
+      get :attack
+      get :backstab
+    end
+  end
+
   root "menus#dash"
 end

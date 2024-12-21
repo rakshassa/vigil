@@ -1,5 +1,5 @@
 #header_row {
-    max-height: 50px;
+    max-height: 70px;
 }
 
 #footer_row {
@@ -13,7 +13,7 @@
 }
 
 .dash {
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .action_btn {
@@ -36,4 +36,44 @@
     margin-left: -12px;
     z-index: 2;
     position: relative;
+}
+
+.top_label_badge {
+    margin-left: -22px;
+    margin-top: -18px;
+    z-index: 2;
+    position: absolute;
+}
+
+.status-span {
+    width: 175px;
+}
+
+.text-span {
+    background:white;
+    border-radius: .375rem;
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.monster-card {
+    background:white;
+    border-radius: .375rem;
+    display: inline-block;
+    text-align: left;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.monster-title {
+    font-weight: bolder;
+    font-size: large;
 }

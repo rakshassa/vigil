@@ -10,8 +10,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "armors", force: :cascade do |t|
+    t.string "name"
+    t.integer "cost"
+    t.integer "defense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fights", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "monster_id", null: false
+    t.boolean "ended", default: false
+    t.integer "currenthp", default: 0
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["monster_id"], name: "index_fights_on_monster_id"
+    t.index ["player_id"], name: "index_fights_on_player_id"
+  end
+
+  create_table "monsters", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.integer "strength"
+    t.integer "exp"
+    t.integer "hp"
+    t.integer "gold"
+    t.string "weapon"
+    t.string "death"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.integer "level"
+    t.integer "maxhp"
+    t.integer "currenthp"
+    t.integer "gold"
+    t.integer "gems"
+    t.integer "baseatk"
+    t.integer "basedef"
+    t.integer "skills"
+    t.bigint "weapon_id"
+    t.bigint "armor_id"
+    t.integer "days"
+    t.integer "hours"
+    t.integer "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["armor_id"], name: "index_players_on_armor_id"
+    t.index ["weapon_id"], name: "index_players_on_weapon_id"
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "cost"
+    t.integer "mindmg"
+    t.integer "maxdmg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "fights", "monsters"
+  add_foreign_key "fights", "players"
+  add_foreign_key "players", "armors"
+  add_foreign_key "players", "weapons"
 end

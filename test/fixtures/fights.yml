@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  monster: one
+  dead: false
+  currenthp: 1
+
+two:
+  player: two
+  monster: two
+  dead: false
+  currenthp: 1
