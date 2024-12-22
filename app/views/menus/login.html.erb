@@ -2,30 +2,32 @@
 <div class="container-fluid dash">
   <div class="row" id="header_row">
     <div class="col-3 dash_panel" id="settings_panel">
-      <%= render "settings_panel" %>
+
     </div>
     <div class="col-8 dash_panel" id="timing_panel">
-      <%= render "timing_panel" %>
+        <div class="d-flex justify-content-center">
+            <span class="text-span">Welcome to Vigil</span>
+        </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-3 dash_panel d-flex justify-content-center coverable" id="actions_panel">
-      <%= render "action_buttons" %>
+    <div class="col-3 dash_panel d-flex justify-content-center" id="actions_panel">
+
     </div>
     <div class="col-8 dash_panel" id="content_panel">
-      <% if content_for?(:content_panel) %>
-        <%= yield :content_panel %>
-      <% end %>
+        <div class="d-flex justify-content-center">
+            <%= link_to "Start as a Thief", start_game_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+        </div>
     </div>
   </div>
 
   <div class="row" id="footer_row">
     <div class="col-3 dash_panel" id="context_panel">
-      context_panel
+
     </div>
     <div class="col-8 dash_panel" id="status_panel">
-      <%= render "player_status" %>
+
     </div>
   </div>
 </div>

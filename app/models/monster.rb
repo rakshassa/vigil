@@ -1,4 +1,6 @@
 class Monster < ApplicationRecord
+    has_many :fights
+
     def roll_gold
         roll_variance(gold, Setting.gold_variance)
     end

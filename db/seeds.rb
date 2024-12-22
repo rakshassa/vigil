@@ -33,13 +33,6 @@ Level.where(id: 6, name: '6', exp: 50000).first_or_create
 Level.where(id: 7, name: '7', exp: 300000).first_or_create
 Level.where(id: 8, name: 'MAX', exp: 1000000).first_or_create
 
-if Player.count.zero?
-    Player.create(
-      level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 0, baseatk: 5, basedef: 1,
-      skills: 1, weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
-    )
-end
-
 Setting.where(name: 'gold_variance', value: 0.25).first_or_create
 Setting.where(name: 'exp_variance', value: 0.25).first_or_create
 Setting.where(name: 'monster_dmg_variance', value: 0.25).first_or_create
@@ -49,3 +42,4 @@ Setting.where(name: 'player_run_percentage', value: 80).first_or_create
 Setting.where(name: 'player_crit_chance_percentage', value: 10).first_or_create
 Setting.where(name: 'player_crit_dmg_multiplier', value: 2.0).first_or_create
 Setting.where(name: 'skill_dmg_multiplier', value: 3.0).first_or_create
+Setting.where(name: 'heal_cost_per_hp').first_or_create(value: 5)

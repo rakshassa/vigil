@@ -1,7 +1,12 @@
+<% if @disable_actions %>
+<div class="glass-pane">
+</div>
+<% end %>
+
 <div class="btn-group-vertical">
   <div>
     <span class="badge badge-pill bg-success left_action_badge">W</span>
-    <%= link_to "Wilderness", wilderness_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+    <%= link_to "Wilderness", wilderness_menus_path(@player, fight_id: nil), class: "action_btn btn btn-info rounded-pill" %>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">T</span>
@@ -31,9 +36,7 @@
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">H</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
-      Healer
-    </button>
+    <%= link_to "Healer", healer_menus_path, class: "action_btn btn btn-info rounded-pill" %>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">S</span>

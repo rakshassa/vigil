@@ -1,0 +1,42 @@
+<% content_for :content_panel do %>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="d-flex justify-content-center">
+      <span class="text-span">
+        <%= raw("A grizzled old man rests beside a bubbling cauldron.<br>He asks 'What do you need?'<br>") %>
+      </span>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col justify-content-center monster-card">
+      <div class="row">
+        <span class="monster-title">
+          <%= "Healing costs #{Setting.heal_cost_per_hp} gold per HP." %>
+        </span>
+        <br>
+      </div>
+      <div class="row">
+        <span>
+          <b>Your HP:</b><%= raw(" #{@player.currenthp}/#{@player.maxhp}<br>") %>
+          <b>Cost:</b><%= " #{@player.healing_cost} gold for #{@player.healing_max} HP." %>
+        </span>
+      </div>
+      <div id="monster-actions" class="row">
+        <div class="col">
+          <span class="badge badge-pill bg-success left_action_badge">1</span>
+          <%= link_to "Heal", heal_menus_path(@player), class: "action_btn btn btn-info rounded-pill" %>
+        </div>
+        <div class="col">
+          <span class="badge badge-pill bg-success left_action_badge">2</span>
+          <%= link_to "Leave", dash_menus_path(@player, message: "You leave without healing.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+<% end %>
+
+<%= render "mainframe" %>

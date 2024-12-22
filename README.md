@@ -1,16 +1,16 @@
 # TODO
 
-- add EXP on the GUI (with how much exp to level up)
-    - flag trainer when player can level up
-
-- after player death, restart the game
 - increment time/date - trigger boss fights
-- better UX for "what do you do now" after combat ends
-- disable actions-panel during combat
-- integrate defense to mitigate inbound damage
-- randomize monster damage inflicted and loots
 
 - implement all actions
-    - trainer, shop, jeweler, bard, healer, scouts
+    - trainer, shop, jeweler, bard, scouts
+- flag trainer when player can level up
 
+UX
+=====
+- NOTICE bar at the top should be styled better
 
+DEFER
+=========
+- login
+- start-game screen (select character, challenges, modifiers)

@@ -4,7 +4,7 @@ class CombatResolver
     end
 
     def attack
-        message = "You miss.  How embarrassing."
+        message = "You miss.  How embarrassing.<br>"
         if @fight.player.roll_hit
             message = hit_monster(is_skill: false)
         end
@@ -20,7 +20,7 @@ class CombatResolver
         skills = @fight.player.skills
 
         # make sure the player has skill points
-        return @fight.update(message: 'You have no skill points remaining.  ') unless skills.positive?
+        return @fight.update(message: 'You have no skill points remaining.<br>') unless skills.positive?
 
         # resolve the attack
         message = hit_monster(is_skill: true)
@@ -38,14 +38,14 @@ class CombatResolver
 
     def run
         if @fight.player.roll_run
-            @fight.update(message: 'You high tail it out of there.  ', ended: true)
-        else
-            message = 'You turn to flee... your back is exposed!  '
-
-            # hit player for damage
-            message += hit_player
-            @fight.update(message: message)
+            return @fight.update(message: 'You high tail it out of there.<br>', ended: true)
         end
+
+        message = 'You turn to flee... your back is exposed!<br>'
+
+        # hit player for damage
+        message += hit_player
+        @fight.update(message: message)
     end
 
     def monster_attack
@@ -53,7 +53,7 @@ class CombatResolver
             return hit_player
         end
 
-        "#{@fight.monster.name} misses you completely.  "
+        "#{@fight.monster.name} misses you completely.<br>"
     end
 
     def hit_monster(is_skill: false)
@@ -61,13 +61,15 @@ class CombatResolver
         currenthp = @fight.currenthp
         ended = false
 
-        message = "You hit #{@fight.monster.name} for #{dmg} damage.  "
+        message = "You hit #{@fight.monster.name} for #{dmg} damage.<br>"
+        message = "With overwhelming skill, you critically strike #{@fight.monster.name} for #{dmg} damage.<br>" if dmg > @fight.player.max_damage
+        message = "You slip behind #{@fight.monster.name} and embed your #{@fight.player.weapon} in his back for #{dmg} damage.<br>" if is_skill
 
         if currenthp < dmg
             currenthp = 0
             ended = true
-            message = "You massacre the #{@fight.monster.name} for #{dmg} damage.  "
-            message += @fight.monster.death
+            message = "You massacre the #{@fight.monster.name} for #{dmg} damage.<br>"
+            message += @fight.monster.death + "<br>"
             message += loot
         else
             currenthp -= dmg
@@ -87,7 +89,7 @@ class CombatResolver
         # TODO: chance of finding a gem
 
         @fight.player.update(gold: current_gold + new_gold, exp: current_exp + new_exp)
-        "You find #{new_gold} gold and gain #{new_exp} experience.  "
+        "<br>You find #{new_gold} gold and gain #{new_exp} experience.<br>"
     end
 
     # assumes the monster has hit the player
@@ -99,12 +101,13 @@ class CombatResolver
         currenthp = @fight.player.currenthp
         @fight.player.update(currenthp: currenthp-dmg)
 
-        message = "#{@fight.monster.name} hits you for #{dmg} damage.  "
+        message = "#{@fight.monster.name} #{@fight.monster.weapon} for #{dmg} damage.<br>"
+        message = "#{@fight.monster.name} bounces off your armor.<br>" if dmg <= 0
 
         # check if the player died
         if @fight.player.currenthp <= 0
             @fight.update(ended: true)
-            message += "You die.  "
+            message += "You die.<br>"
         end
 
         message

@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     collection do
       get :dash
       get :wilderness
+      get :start_game
+      get :login
+      get :healer
+      get :heal
+      get :trainer
+      get :shop
     end
   end
 
@@ -18,5 +24,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root "menus#dash"
+  root "menus#login"
 end

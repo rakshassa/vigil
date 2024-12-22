@@ -34,4 +34,8 @@ class Setting < ApplicationRecord
     def self.skill_dmg_multiplier
         Setting.where(name: 'skill_dmg_multiplier').first_or_create(value: 3.0).value
     end
+
+    def self.heal_cost_per_hp
+        Setting.where(name: 'heal_cost_per_hp').first_or_create(value: 5).value
+    end
 end

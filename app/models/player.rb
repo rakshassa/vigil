@@ -3,6 +3,34 @@ class Player < ApplicationRecord
     belongs_to :armor, optional: false
     belongs_to :level, optional: false
 
+    has_many :fights, dependent: :destroy
+
+    def heal
+        actual_healing = healing_max
+        actual_cost = healing_cost
+        update(currenthp: currenthp + actual_healing, gold: gold-actual_cost)
+    end
+
+    def healing_cost
+        missing_hp = maxhp - currenthp
+        max_healing = (gold/Setting.heal_cost_per_hp).floor
+
+        actual_healing = [missing_hp, max_healing].min
+
+        (actual_healing * Setting.heal_cost_per_hp).floor
+    end
+
+    def healing_max
+        missing_hp = maxhp - currenthp
+        max_healing = (gold/Setting.heal_cost_per_hp).floor
+
+        [missing_hp, max_healing].min
+    end
+
+    def is_dead?
+        currenthp <= 0
+    end
+
     def next_level
         next_level_id = level.id + 1
         return Level.last if next_level_id >= Level.last.id
