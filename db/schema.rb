@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_22_140944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
     t.index ["player_id"], name: "index_fights_on_player_id"
   end
 
+  create_table "levels", force: :cascade do |t|
+    t.string "name"
+    t.integer "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "monsters", force: :cascade do |t|
     t.string "name"
     t.integer "level"
@@ -48,11 +55,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer "level"
+    t.bigint "level_id", null: false
     t.integer "maxhp"
     t.integer "currenthp"
     t.integer "gold"
-    t.integer "gems"
+    t.integer "gems", default: 0
     t.integer "baseatk"
     t.integer "basedef"
     t.integer "skills"
@@ -60,11 +67,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
     t.bigint "armor_id"
     t.integer "days"
     t.integer "hours"
-    t.integer "exp"
+    t.integer "exp", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["armor_id"], name: "index_players_on_armor_id"
+    t.index ["level_id"], name: "index_players_on_level_id"
     t.index ["weapon_id"], name: "index_players_on_weapon_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "name"
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "weapons", force: :cascade do |t|
@@ -79,5 +94,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_194350) do
   add_foreign_key "fights", "monsters"
   add_foreign_key "fights", "players"
   add_foreign_key "players", "armors"
+  add_foreign_key "players", "levels"
   add_foreign_key "players", "weapons"
 end

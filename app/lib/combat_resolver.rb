@@ -5,7 +5,7 @@ class CombatResolver
 
     def attack
         message = "You miss.  How embarrassing."
-        if player_roll_hit
+        if @fight.player.roll_hit
             message = hit_monster(is_skill: false)
         end
 
@@ -37,10 +37,7 @@ class CombatResolver
     end
 
     def run
-        chance = Rands.rand(1, 100)
-        success = (chance < 80) # TODO: make this a configurable constant
-
-        if success
+        if @fight.player.roll_run
             @fight.update(message: 'You high tail it out of there.  ', ended: true)
         else
             message = 'You turn to flee... your back is exposed!  '
@@ -52,26 +49,15 @@ class CombatResolver
     end
 
     def monster_attack
-        if monster_roll_hit
+        if @fight.monster.roll_hit
             return hit_player
         end
 
         "#{@fight.monster.name} misses you completely.  "
     end
 
-    # returns bool: true on hit, false on miss
-    def monster_roll_hit
-        # 80% hit rate - make this configurable
-        Rands.rand(1, 100) < 80
-    end
-
-    def player_roll_hit
-        # 80% hit rate - make this configurable
-        Rands.rand(1, 100) < 80
-    end
-
     def hit_monster(is_skill: false)
-        dmg = @fight.player.roll_damage(is_skill)
+        dmg = @fight.player.roll_dmg(is_skill)
         currenthp = @fight.currenthp
         ended = false
 
@@ -80,11 +66,11 @@ class CombatResolver
         if currenthp < dmg
             currenthp = 0
             ended = true
-            message = "You massacre the #{@fight.monster.name}.  "
+            message = "You massacre the #{@fight.monster.name} for #{dmg} damage.  "
             message += @fight.monster.death
             message += loot
         else
-            message += monster_attack
+            currenthp -= dmg
         end
 
         @fight.update(currenthp: currenthp, ended: ended)
@@ -95,7 +81,6 @@ class CombatResolver
         current_gold = @fight.player.gold
         current_exp = @fight.player.exp
 
-        # TODO: randomize these numbers
         new_gold = @fight.monster.gold
         new_exp = @fight.monster.exp
 
@@ -108,9 +93,9 @@ class CombatResolver
     # assumes the monster has hit the player
     # calculates damage, updates player HP, and returns the fight message
     def hit_player
-        dmg = @fight.monster.strength
-        # TODO: randomize +/- some percentage
-        # TODO: subtract some damage by player.defense (modified by armor)
+        dmg = @fight.monster.roll_dmg
+        dmg = @fight.player.mitigate_damage(dmg)
+
         currenthp = @fight.player.currenthp
         @fight.player.update(currenthp: currenthp-dmg)
 

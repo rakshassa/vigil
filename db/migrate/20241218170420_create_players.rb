@@ -1,7 +1,7 @@
 class CreatePlayers < ActiveRecord::Migration[8.0]
   def change
     create_table :players do |t|
-      t.integer :level
+      t.references :level, null: false, foreign_key: true, index: true
       t.integer :maxhp
       t.integer :currenthp
       t.integer :gold
