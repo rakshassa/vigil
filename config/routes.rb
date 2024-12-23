@@ -11,8 +11,18 @@ Rails.application.routes.draw do
       get :login
       get :healer
       get :heal
-      get :trainer
+      get :training
+      get :train
+    end
+  end
+
+  resources :shops do
+    collection do
       get :shop
+      get :shop_weapons
+      get :shop_armor
+      get :buy_weapon
+      get :buy_armor
     end
   end
 

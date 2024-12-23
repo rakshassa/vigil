@@ -65,7 +65,7 @@ class CombatResolver
         message = "With overwhelming skill, you critically strike #{@fight.monster.name} for #{dmg} damage.<br>" if dmg > @fight.player.max_damage
         message = "You slip behind #{@fight.monster.name} and embed your #{@fight.player.weapon} in his back for #{dmg} damage.<br>" if is_skill
 
-        if currenthp < dmg
+        if currenthp <= dmg
             currenthp = 0
             ended = true
             message = "You massacre the #{@fight.monster.name} for #{dmg} damage.<br>"

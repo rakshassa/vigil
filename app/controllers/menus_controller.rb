@@ -3,7 +3,6 @@ class MenusController < ApplicationController
   before_action :ensure_no_fight, except: %i[wilderness]
   before_action :default_disables
 
-
   def healer
   end
 
@@ -12,10 +11,15 @@ class MenusController < ApplicationController
     redirect_to dash_menus_path(@player, message: 'You heal as much as you can afford.')
   end
 
-  def trainer
+  def training
   end
 
-  def shop
+  def train
+    return redirect_to dash_menus_path(@player, message: 'You are not ready to train.') unless @player.can_level?
+    return redirect_to dash_menus_path(@player, message: "You can't afford to train.") if @player.gold < @player.next_level.gold
+
+    message = @player.level_up
+    redirect_to dash_menus_path(@player, message: message)
   end
 
   def login
@@ -57,25 +61,5 @@ class MenusController < ApplicationController
     end
 
     @disable_actions = @player.is_dead? || !@fight.ended
-  end
-
-  private
-
-  def default_disables
-    @disable_actions = false
-  end
-
-  def set_player
-    playerid = params[:id]
-    playerid = Player.first.id if playerid.nil?
-
-    @player = Player.find(playerid)
-  end
-
-  def ensure_no_fight
-    record = Fight.where(player_id: @player, ended: false).first
-    return if record.nil?
-
-    redirect_to wilderness_menus_path(fight_id: record.id), notice: 'Your attempt to cheat has been logged. Do not continue. You have been warned.'
   end
 end

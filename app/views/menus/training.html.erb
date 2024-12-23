@@ -3,7 +3,7 @@
     <div class="col-2"></div>
     <div class="d-flex justify-content-center">
       <span class="text-span">
-        <%= raw("A grizzled old man rests beside a bubbling cauldron.<br>He asks 'What do you need?'<br>") %>
+        <%= raw("A scarred veteran looks you up and down.<br>He asks 'Are you here for training?'<br>") %>
       </span>
     </div>
     <div class="col-2"></div>
@@ -14,24 +14,29 @@
     <div class="col justify-content-center monster-card">
       <div class="row">
         <span class="monster-title">
-          <%= "Healing costs #{Setting.heal_cost_per_hp} gold per HP." %>
+          <%= "Training costs #{@player.next_level.gold} gold." %>
         </span>
         <br>
       </div>
       <div class="row">
         <span>
-          <b>Your HP:</b><%= raw(" #{@player.currenthp}/#{@player.maxhp}<br>") %>
-          <b>Cost:</b><%= " #{@player.healing_cost} gold for #{@player.healing_max} HP." %>
+          <% if @player.can_level? %>
+            <%= raw("You seem ready, to me.  Shall we begin?<br>") %>
+          <% else %>
+            <%= raw("You are not yet experienced enough to learn what I have to teach.<br>") %>
+          <% end %>
         </span>
       </div>
       <div id="monster-actions" class="row">
+        <% if @player.can_level? %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Heal", heal_menus_path(@player), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Train", train_menus_path(@player), class: "action_btn btn btn-info rounded-pill" %>
         </div>
+        <% end %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">2</span>
-          <%= link_to "Leave", dash_menus_path(@player, message: "You leave without healing.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Leave", dash_menus_path(@player, message: "You leave without training.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
         </div>
       </div>
     </div>

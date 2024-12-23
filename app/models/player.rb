@@ -5,6 +5,48 @@ class Player < ApplicationRecord
 
     has_many :fights, dependent: :destroy
 
+    def reimburse_weapon_amount
+        (weapon.cost/2).ceil
+    end
+
+    def reimburse_armor_amount
+        (weapon.cost/2).ceil
+    end
+
+    def can_afford_weapon?(item)
+        gold >= (item.cost-reimburse_weapon_amount)
+    end
+
+    def can_afford_armor?(item)
+        gold >= (item.cost-reimburse_armor_amount)
+    end
+
+    def buy_weapon(item)
+        update(gold: gold-item.cost+reimburse_weapon_amount, weapon_id: item.id)
+    end
+
+    def buy_armor(item)
+        update(gold: gold-item.cost+reimburse_armor_amount, armor_id: item.id)
+    end
+
+    # levels up the player - includes more HP, atk, def, and costs gold
+    # returns message
+    def level_up
+        target = next_level
+        new_gold = gold - target.gold
+        new_hp = maxhp + target.hp
+        new_atk = baseatk + target.atk
+        new_def = basedef + target.def
+
+        update(gold: new_gold, maxhp: new_hp, currenthp: new_hp, baseatk: new_atk, basedef: new_def, level_id: target.id)
+
+        "You pay him #{target.gold} gold to train you.<br><br>You gain #{target.hp} HP, #{target.atk} Attack, and #{target.def} Defense."
+    end
+
+    def can_level?
+        exp >= next_level.exp
+    end
+
     def heal
         actual_healing = healing_max
         actual_cost = healing_cost

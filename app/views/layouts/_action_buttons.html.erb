@@ -10,16 +10,14 @@
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">T</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
-      Trainer
-    </button>
+    <%= link_to "Training", training_menus_path(@player), class: "action_btn btn btn-info rounded-pill" %>
+    <% if @player.can_level? %>
     <span class="badge badge-pill bg-danger right_action_badge">!</span>
+    <% end %>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">S</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
-      Shop
-    </button>
+    <%= link_to "Shop", shop_shops_path, class: "action_btn btn btn-info rounded-pill" %>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">J</span>

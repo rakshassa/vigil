@@ -16,12 +16,20 @@
     max-width: 1000px;
 }
 
+.shop_btn {
+    padding: 3px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    z-index: 1;
+    min-width: 100px;
+}
+
 .action_btn {
     padding: 3px;
     margin-top: 15px;
     margin-bottom: 15px;
     z-index: 1;
-    width: 100px;
+    min-width: 100px;
 }
 
 .left_action_badge {
