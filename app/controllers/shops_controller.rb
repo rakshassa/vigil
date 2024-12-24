@@ -20,9 +20,9 @@ class ShopsController < ApplicationController
     return redirect_to shop_weapons_shops_path(@player, message: "The shopkeeper grumbles when he realizes you can't afford that.") unless @player.can_afford_weapon?(item)
 
     olditem = Weapon.find(@player.weapon_id)
-    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the trash."
+    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the forge.<br>You spend some time training with it."
     @player.buy_weapon(item)
-    redirect_to shop_shops_path(@player, message: message)
+    redirect_to dash_menus_path(@player, message: message)
   end
 
   def buy_armor
@@ -30,8 +30,8 @@ class ShopsController < ApplicationController
     return redirect_to shop_armor_shops_path(@player, message: "The shopkeeper grumbles when he realizes you can't afford that.") unless @player.can_afford_armor?(item)
 
     olditem = Armor.find(@player.armor_id)
-    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the trash."
+    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the kiln.<br>You spend some time training in it."
     @player.buy_armor(item)
-    redirect_to shop_shops_path(@player, message: message)
+    redirect_to dash_menus_path(@player, message: message)
   end
 end

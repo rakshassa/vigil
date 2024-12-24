@@ -3,6 +3,16 @@ class MenusController < ApplicationController
   before_action :ensure_no_fight, except: %i[wilderness]
   before_action :default_disables
 
+  def bard
+  end
+
+  def bard_buff
+    redirect_to dash_menus_path(@player, message: 'Jaskier is too tired to perform again today.') if @player.used_bard
+
+    message = @player.bard_buff
+    redirect_to dash_menus_path(@player, message: message)
+  end
+
   def healer
   end
 
@@ -30,13 +40,18 @@ class MenusController < ApplicationController
 
     record = Player.create(
       level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 0, baseatk: 5, basedef: 1,
-      skills: 1, weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
+      skills: 1, baseskills: 1, used_bard: false,
+      weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
     )
     redirect_to dash_menus_path(id: record.id)
   end
 
   def dash
+    @day_ended = @player.day_ended?
+
     @message = params[:message]
+    @message += "<br>" unless @message.blank?
+    @message = "#{@message}A dangerous foe approaches.  You prepare yourself - your skills are refreshed!" if @day_ended
     @message = "Welcome to Vigil.<br><br>What would you like to do?" if @message.blank?
   end
 
@@ -46,9 +61,6 @@ class MenusController < ApplicationController
     raise ActionController::BadRequest.new(), "More than one ongoing fight." if records.count > 1
 
     fight_id = params[:fight_id]&.to_i
-
-    # if the input param was lost/removed, just use the only available fight
-    # fight_id = records.first.id if fight_id.blank? && records.count == 1
     raise ActionController::BadRequest.new(), "Wrong Fight ID" if records.count == 1 && records.first.id != fight_id
 
     if fight_id.present?
@@ -57,9 +69,11 @@ class MenusController < ApplicationController
     else
       # start a new fight
       @fight = EncounterSelector.new.select(@player)
+      @player.increment_hours # new encounter takes an hour
       Rails.logger.info "Created Fight: #{@fight.id}"
     end
-
-    @disable_actions = @player.is_dead? || !@fight.ended
+    @day_ended = @player.day_ended?
+    @disable_actions = @player.is_dead? || !@fight.ended || @day_ended
+    Rails.logger.info "Hours: #{@player.hours} with ended: #{@player.day_ended?} and disable: #{@disable_actions}"
   end
 end

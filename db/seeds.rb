@@ -27,12 +27,20 @@ Monster.where(name: 'Will o the Wisp', level: 1, strength: 5, exp: 6, hp: 8, gol
 Monster.where(name: 'Shambling Skeleton', level: 1, strength: 6, exp: 7, hp: 9, gold: 21, weapon: 'pummels you with his Boney Fists', death: 'It tumbles into a pile of bones.  ').first_or_create
 Monster.where(name: 'Goblin Ramsey', level: 1, strength: 7, exp: 10, hp: 14, gold: 30, weapon: 'smacks you with his Frying Pan', death: 'He grumbles as he collapses.  ').first_or_create
 
+Monster.where(is_boss: true, name: 'Hungry Hippo', level: 1, strength: 10, exp: 15, hp: 22, gold: 40, weapon: 'bites you', death: 'It squelches into the mud.').first_or_create
+Monster.where(is_boss: true, name: 'Ravenous Wildebeast', level: 1, strength: 12, exp: 15, hp: 12, gold: 40, weapon: 'impales you with his horns', death: 'It bleeds out.').first_or_create
+Monster.where(is_boss: true, name: 'Mudman', level: 1, strength: 8, exp: 15, hp: 35, gold: 40, weapon: 'slaps you across the face', death: 'It disolves into the ground.').first_or_create
+
 Monster.where(name: 'Billy Goat', level: 2, strength: 6, exp: 13, hp: 12, gold: 20, weapon: 'headbutts you', death: 'It Quivers until lifeless.  ').first_or_create
 Monster.where(name: 'Goblin Warrior', level: 2, strength: 7, exp: 15, hp: 19, gold: 32, weapon: 'sticks you with a pointy branch', death: 'He falls on his face.  ').first_or_create
 Monster.where(name: 'Animated Spear', level: 2, strength: 9, exp: 17, hp: 15, gold: 55, weapon: 'stabs you in the thigh', death: 'It falls to the floor.  ').first_or_create
 Monster.where(name: 'Stirge', level: 2, strength: 11, exp: 19, hp: 26, gold: 42, weapon: 'drinks your blood', death: 'His humming stops.  ').first_or_create
 Monster.where(name: 'Spiteful Imp', level: 2, strength: 12, exp: 21, hp: 18, gold: 35, weapon: 'burns you with his palm', death: 'Its corpse melds into the earth.  ').first_or_create
-Monster.where(name: 'Grumpy Beaver', level: 2, strength: 15, exp: 23, hp: 29, gold: 61, weapon: 'gnaws on your leg', death: 'Its corpse rolls away from you.  ').first_or_create
+Monster.where(name: 'Mangy Beaver', level: 2, strength: 13, exp: 23, hp: 27, gold: 61, weapon: 'gnaws on your leg', death: 'Its corpse rolls away from you.  ').first_or_create
+
+Monster.where(is_boss: true, name: 'Shambling Zombie', level: 2, strength: 13, exp: 37, hp: 52, gold: 80, weapon: 'scratches you with his filthy nails', death: 'It falls into pieces.').first_or_create
+Monster.where(is_boss: true, name: 'White Ape', level: 2, strength: 15, exp: 40, hp: 50, gold: 100, weapon: 'smashes you with his fists', death: 'It howls with its last breath.').first_or_create
+Monster.where(is_boss: true, name: 'Viper', level: 2, strength: 17, exp: 42, hp: 26, gold: 90, weapon: 'sinks his fangs deep into your leg', death: 'It lays still.').first_or_create
 
 Monster.where(name: 'Tiny Dancer', level: 3, strength: 12, exp: 20, hp: 12, gold: 46, weapon: 'headbutts you', death: 'It Quivers until lifeless.  ').first_or_create
 Monster.where(name: 'Whirling Dervish', level: 3, strength: 14, exp: 25, hp: 19, gold: 32, weapon: 'sticks you with a pointy branch', death: 'He falls on his face.  ').first_or_create
@@ -40,6 +48,10 @@ Monster.where(name: 'Swarm of Mites', level: 3, strength: 16, exp: 27, hp: 15, g
 Monster.where(name: 'Crackling Cloud', level: 3, strength: 18, exp: 39, hp: 26, gold: 62, weapon: 'drinks your blood', death: 'His humming stops.  ').first_or_create
 Monster.where(name: 'Speckled Serpent', level: 3, strength: 21, exp: 21, hp: 18, gold: 105, weapon: 'burns you with his palm', death: 'Its corpse melds into the earth.  ').first_or_create
 Monster.where(name: 'Derek', level: 3, strength: 25, exp: 23, hp: 43, gold: 81, weapon: 'gnaws on your leg', death: 'Its corpse rolls away from you.  ').first_or_create
+
+Monster.where(is_boss: true, name: 'JT the Airman', level: 3, strength: 20, exp: 55, hp: 72, gold: 130, weapon: 'beats you down with his sarcasm', death: 'He seems confused as he falls over.').first_or_create
+Monster.where(is_boss: true, name: 'Very Large Bat', level: 3, strength: 25, exp: 70, hp: 80, gold: 120, weapon: 'rips at your eyes', death: 'It skids across the ground.').first_or_create
+Monster.where(is_boss: true, name: 'Angry Clown', level: 3, strength: 30, exp: 82, hp: 56, gold: 140, weapon: 'tells a really bad joke', death: 'Its rubber nose bounces away.').first_or_create
 
 Level.where(id: 1, hp: 10, atk: 5, def: 2, name: '1', exp: 0, gold: 0).first_or_create
 Level.where(id: 2, hp: 10, atk: 3, def: 2, name: '2', exp: 50, gold: 100).first_or_create
@@ -53,10 +65,12 @@ Level.where(id: 8, hp: 200, atk: 22, def: 20, name: 'MAX', exp: 500000, gold: 10
 Setting.where(name: 'gold_variance', value: 0.25).first_or_create
 Setting.where(name: 'exp_variance', value: 0.25).first_or_create
 Setting.where(name: 'monster_dmg_variance', value: 0.25).first_or_create
-Setting.where(name: 'player_hit_percentage', value: 80).first_or_create
-Setting.where(name: 'monster_hit_percentage', value: 80).first_or_create
+Setting.where(name: 'player_hit_percentage', value: 90).first_or_create
+Setting.where(name: 'monster_hit_percentage', value: 70).first_or_create
 Setting.where(name: 'player_run_percentage', value: 80).first_or_create
 Setting.where(name: 'player_crit_chance_percentage', value: 10).first_or_create
 Setting.where(name: 'player_crit_dmg_multiplier', value: 2.0).first_or_create
 Setting.where(name: 'skill_dmg_multiplier', value: 3.0).first_or_create
 Setting.where(name: 'heal_cost_per_hp').first_or_create(value: 5)
+Setting.where(name: 'daily_hours').first_or_create(value: 24)
+Setting.where(name: 'weekly_days').first_or_create(value: 7)

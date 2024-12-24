@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       get :heal
       get :training
       get :train
+      get :bard
+      get :bard_buff
     end
   end
 
@@ -27,6 +29,9 @@ Rails.application.routes.draw do
   end
 
   resources :fights do
+    collection do
+      get :boss
+    end
     member do
       get :run
       get :attack

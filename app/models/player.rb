@@ -5,6 +5,40 @@ class Player < ApplicationRecord
 
     has_many :fights, dependent: :destroy
 
+    def bard_buff
+        update(used_bard: true)
+
+        points = level.id
+        type = %w[def atk hp skills].sample
+        if type == "hp"
+            points = points * 2 # get twice HP as your level
+            update(maxhp: maxhp + points, currenthp: maxhp + points)
+            return "Jaskier fiddles a lively tune.<br>Your max HP increases by #{points} and you are healed!"
+        elsif type == "atk"
+            update(baseatk: baseatk + points)
+            return "Jaskier thrashes some heavy metal on his guitar.<br>Your attack increases by #{points}!"
+        elsif type == "def"
+            update(basedef: basedef + points)
+            return "Jaskier slams out a full jam session on his drums.<br>Your defense increases by #{points}!"
+        elsif type == "skills"
+            # this does not get better with levels
+            update(skills: skills + 1, baseskills: baseskills + 1)
+            return "Jaskier sings a ballad of wisdom.<br>You can backstab 1 more time per day!"
+        end
+
+        # should never get here
+        update(currenthp: 1)
+        "The impossible happens. You nearly die."
+    end
+
+    def increment_hours
+        update(hours: hours + 1)
+    end
+
+    def day_ended?
+        hours >= Setting.daily_hours
+    end
+
     def reimburse_weapon_amount
         (weapon.cost/2).ceil
     end
@@ -23,10 +57,12 @@ class Player < ApplicationRecord
 
     def buy_weapon(item)
         update(gold: gold-item.cost+reimburse_weapon_amount, weapon_id: item.id)
+        increment_hours
     end
 
     def buy_armor(item)
         update(gold: gold-item.cost+reimburse_armor_amount, armor_id: item.id)
+        increment_hours
     end
 
     # levels up the player - includes more HP, atk, def, and costs gold
@@ -39,7 +75,7 @@ class Player < ApplicationRecord
         new_def = basedef + target.def
 
         update(gold: new_gold, maxhp: new_hp, currenthp: new_hp, baseatk: new_atk, basedef: new_def, level_id: target.id)
-
+        increment_hours
         "You pay him #{target.gold} gold to train you.<br><br>You gain #{target.hp} HP, #{target.atk} Attack, and #{target.def} Defense."
     end
 
@@ -51,6 +87,7 @@ class Player < ApplicationRecord
         actual_healing = healing_max
         actual_cost = healing_cost
         update(currenthp: currenthp + actual_healing, gold: gold-actual_cost)
+        increment_hours
     end
 
     def healing_cost

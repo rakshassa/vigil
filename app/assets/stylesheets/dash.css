@@ -101,3 +101,7 @@ div.glass-pane {
     opacity: .3;
     background: black;
 }
+
+#status_panel {
+    min-height: 110px;
+}

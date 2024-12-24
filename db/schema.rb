@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_23_010221) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_24_015130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,6 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_23_010221) do
     t.string "death"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_boss", default: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -74,6 +75,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_23_010221) do
     t.integer "exp", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "used_bard", default: false
+    t.integer "baseskills", default: 1
     t.index ["armor_id"], name: "index_players_on_armor_id"
     t.index ["level_id"], name: "index_players_on_level_id"
     t.index ["weapon_id"], name: "index_players_on_weapon_id"

@@ -21,16 +21,16 @@
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">J</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
+    <button type="button" class="btn btn-info action_btn rounded-pill" disabled="disabled">
       Jeweler
     </button>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">B</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
-      Bard
-    </button>
+    <%= link_to "Bard", bard_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+    <% unless @player.used_bard %>
     <span class="badge badge-pill bg-danger right_action_badge">!</span>
+    <% end %>
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">H</span>
@@ -38,9 +38,8 @@
   </div>
   <div>
     <span class="badge badge-pill bg-success left_action_badge">S</span>
-    <button type="button" class="btn btn-info action_btn rounded-pill">
+    <button type="button" class="btn btn-info action_btn rounded-pill" disabled="disabled">
       Scouts
     </button>
-    <span class="badge badge-pill bg-danger right_action_badge">!</span>
   </div>
 </div>

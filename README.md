@@ -1,10 +1,13 @@
 # TODO
 
+- track rounds in a single combat to allow trinkets/abilities to trigger on specific rounds
+- trinkets - special modifiers with positive/negative tradeoffs
+- switch get/post verbs
 - increment time/date - trigger boss fights
+- non-battle encounters
 
 - implement all actions
-    - trainer, shop, jeweler, bard, scouts
-- flag trainer when player can level up
+    - jeweler, bard, scouts
 
 UX
 =====

@@ -11,14 +11,25 @@
 
   <% if @fight.ended %>
     <% if @player.is_dead? %>
-    <div class="col justify-content-center monster-card">
-      <div id="monster-actions" class="row">
-        <div class="col">
-          <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Restart", login_menus_path, class: "action_btn btn btn-info rounded-pill" %>
-        </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col justify-content-center monster-card">
+        <span class="badge badge-pill bg-success left_action_badge">1</span>
+        <%= link_to "Restart", login_menus_path, class: "action_btn btn btn-info rounded-pill" %>
       </div>
+      <div class="col-2"></div>
     </div>
+    <% else %>
+      <% if @day_ended %>
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col justify-content-center monster-card">
+          <span class="badge badge-pill bg-success left_action_badge">1</span>
+          <%= link_to "Continue", dash_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+        </div>
+        <div class="col-2"></div>
+      </div>
+      <% end %>
     <% end %>
   <% else %>
   <div class="row">
@@ -35,10 +46,12 @@
         </span>
       </div>
       <div id="monster-actions" class="row">
+        <% unless @fight.monster.is_boss %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
           <%= link_to "Run", run_fight_path(@fight, player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
         </div>
+        <% end %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">2</span>
           <%= link_to "Attack", attack_fight_path(@fight, player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
