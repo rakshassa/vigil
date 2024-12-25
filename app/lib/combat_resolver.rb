@@ -20,7 +20,7 @@ class CombatResolver
         skills = @fight.player.skills
 
         # make sure the player has skill points
-        return @fight.update(message: 'You have no skill points remaining.<br>') unless skills.positive?
+        return @fight.update(message: "You have no skill points remaining.<br>") unless skills.positive?
 
         # resolve the attack
         message = hit_monster(is_skill: true)
@@ -38,10 +38,10 @@ class CombatResolver
 
     def run
         if @fight.player.roll_run
-            return @fight.update(message: 'You high tail it out of there.<br>', ended: true)
+            return @fight.update(message: "You high tail it out of there.<br>", ended: true)
         end
 
-        message = 'You turn to flee... your back is exposed!<br>'
+        message = "You turn to flee... your back is exposed!<br>"
 
         # hit player for damage
         message += hit_player

@@ -9,7 +9,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # returns boolean: success
   def roll_chance(success_percentage)
-    chance = Rands.rand(1,100)
+    chance = Rands.rand(1, 100)
     chance < success_percentage
   end
 end

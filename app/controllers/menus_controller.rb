@@ -7,7 +7,7 @@ class MenusController < ApplicationController
   end
 
   def bard_buff
-    redirect_to dash_menus_path(@player, message: 'Jaskier is too tired to perform again today.') if @player.used_bard
+    redirect_to dash_menus_path(@player, message: "Jaskier is too tired to perform again today.") if @player.used_bard
 
     message = @player.bard_buff
     redirect_to dash_menus_path(@player, message: message)
@@ -18,14 +18,14 @@ class MenusController < ApplicationController
 
   def heal
     @player.heal
-    redirect_to dash_menus_path(@player, message: 'You heal as much as you can afford.')
+    redirect_to dash_menus_path(@player, message: "You heal as much as you can afford.")
   end
 
   def training
   end
 
   def train
-    return redirect_to dash_menus_path(@player, message: 'You are not ready to train.') unless @player.can_level?
+    return redirect_to dash_menus_path(@player, message: "You are not ready to train.") unless @player.can_level?
     return redirect_to dash_menus_path(@player, message: "You can't afford to train.") if @player.gold < @player.next_level.gold
 
     message = @player.level_up

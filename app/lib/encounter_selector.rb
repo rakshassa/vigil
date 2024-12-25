@@ -6,7 +6,7 @@ class EncounterSelector
         records = Monster.where(level: player.level.id, is_boss: false)
 
         # select a random record
-        monster = records.order(Arel.sql('RANDOM()')).take
+        monster = records.order(Arel.sql("RANDOM()")).take
 
         # store the fight
         start_msg = "You search around the wilderness for a way to become stronger."
@@ -17,7 +17,7 @@ class EncounterSelector
         records = Monster.where(level: player.days, is_boss: true)
 
         # select a random record
-        monster = records.order(Arel.sql('RANDOM()')).take
+        monster = records.order(Arel.sql("RANDOM()")).take
 
         # store the fight
         start_msg = "You stand before a dangerous foe."
