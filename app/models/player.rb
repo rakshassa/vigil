@@ -4,6 +4,7 @@ class Player < ApplicationRecord
     belongs_to :level, optional: false
 
     has_many :fights, dependent: :destroy
+    has_many :player_trinkets, dependent: :destroy
 
     def bard_buff
         update(used_bard: true)

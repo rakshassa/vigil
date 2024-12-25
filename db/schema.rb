@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_24_015130) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_25_191647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,6 +59,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_015130) do
     t.boolean "is_boss", default: false
   end
 
+  create_table "player_trinkets", force: :cascade do |t|
+    t.bigint "trinket_id", null: false
+    t.bigint "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_player_trinkets_on_player_id"
+    t.index ["trinket_id"], name: "index_player_trinkets_on_trinket_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.bigint "level_id", null: false
     t.integer "maxhp"
@@ -89,6 +98,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_015130) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trinkets", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.integer "cost"
+    t.string "effects"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "weapons", force: :cascade do |t|
     t.string "name"
     t.integer "cost"
@@ -100,6 +118,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_015130) do
 
   add_foreign_key "fights", "monsters"
   add_foreign_key "fights", "players"
+  add_foreign_key "player_trinkets", "players"
+  add_foreign_key "player_trinkets", "trinkets"
   add_foreign_key "players", "armors"
   add_foreign_key "players", "levels"
   add_foreign_key "players", "weapons"

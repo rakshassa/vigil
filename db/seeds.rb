@@ -74,3 +74,5 @@ Setting.where(name: 'skill_dmg_multiplier', value: 3.0).first_or_create
 Setting.where(name: 'heal_cost_per_hp').first_or_create(value: 5)
 Setting.where(name: 'daily_hours').first_or_create(value: 24)
 Setting.where(name: 'weekly_days').first_or_create(value: 7)
+
+Trinket.where(name: "Precision", desc: "You miss half as often.", cost: 100, effects: { name: "Miss", value: 0.5 }.to_json).first_or_create

@@ -1,13 +1,13 @@
 # TODO
 
 - track rounds in a single combat to allow trinkets/abilities to trigger on specific rounds
-- trinkets - special modifiers with positive/negative tradeoffs
+- trinkets - special modifiers with positive/negative tradeoffs - unlimited carry
+- potions - one time use (max carry)
 - switch get/post verbs
-- increment time/date - trigger boss fights
 - non-battle encounters
 
-- implement all actions
-    - jeweler, bard, scouts
+- Action: jeweler
+- Action: scouts
 
 UX
 =====
