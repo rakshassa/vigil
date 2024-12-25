@@ -38,11 +38,7 @@ class MenusController < ApplicationController
   def start_game
     Player.destroy_all
 
-    record = Player.create(
-      level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 0, baseatk: 5, basedef: 1,
-      skills: 1, baseskills: 1, used_bard: false,
-      weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
-    )
+    record = Player.make_new_thief
 
     redirect_to dash_menus_path(id: record.id)
   end

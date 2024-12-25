@@ -171,10 +171,24 @@ class Player < ApplicationRecord
     end
 
     def roll_hit
-        roll_chance(Setting.player_hit_percentage)
+        # adjust hit chance by trinkets
+        hit_chance = Setting.player_hit_percentage
+        miss_chance = 100 - hit_chance
+        better = PlayerTrinket.accumulate(id, "Miss_Perc")
+        hit_chance += (miss_chance * better).floor
+
+        roll_chance(hit_chance)
     end
 
     def roll_run
         roll_chance(Setting.player_run_percentage)
+    end
+
+    def self.make_new_thief
+        Player.create(
+          level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 0, baseatk: 5, basedef: 1,
+          skills: 1, baseskills: 1, used_bard: false,
+          weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
+        )
     end
 end

@@ -76,6 +76,6 @@ Setting.where(name: "daily_hours").first_or_create(value: 24)
 Setting.where(name: "weekly_days").first_or_create(value: 7)
 Setting.where(name: "gem_chance_percentage").first_or_create(value: 25)
 
-Trinket.where(name: "Precision").first_or_create(desc: "You miss half as often.", cost: 2, icon: "bi-bullseye", effects: [{ name: "Miss", value: 0.5 }])
+Trinket.where(name: "Precision").first_or_create(desc: "You miss half as often.", cost: 2, icon: "bi-bullseye", effects: [{ name: "Miss_Perc", value: 0.5 }])
 Trinket.where(name: "Might").first_or_create(desc: "Increase attack by 2.", cost: 2, icon: "bi-fire", effects: [{ name: "Attack", value: 2 }])
 Trinket.where(name: "Shield").first_or_create(desc: "Increase defense by 2.", cost: 2, icon: "bi-shield-fill-plus", effects: [{ name: "Defense", value: 2 }])
