@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="d-flex">
+    <% @player.player_trinkets.find_each do |ptrinket| %>
+    <span class="text-span trinket-span">
+        <i class="bi <%= ptrinket.trinket.icon %>" title=<%= raw("\"#{ptrinket.trinket.name}: #{ptrinket.trinket.desc}\"") %>></i>
+    </span>
+    <% end %>
+  </div>
+</div>

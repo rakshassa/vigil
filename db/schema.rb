@@ -102,7 +102,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_25_191647) do
     t.string "name"
     t.string "desc"
     t.integer "cost"
-    t.string "effects"
+    t.string "icon"
+    t.jsonb "effects"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

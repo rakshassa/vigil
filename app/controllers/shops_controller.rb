@@ -3,6 +3,19 @@ class ShopsController < ApplicationController
   before_action :ensure_no_fight
   before_action :default_disables
 
+  def jeweler
+    @message = params[:message]
+  end
+
+  def buy_trinket
+    item = Trinket.find(params[:trinket_id])
+    return redirect_to jeweler_shops_path(@player, message: "The jeweler grumbles when he realizes you can't afford that.") unless @player.can_afford_trinket?(item)
+
+    message = "The jeweler hands you a #{item.name}.<br>You spend some time training with it."
+    @player.buy_trinket(item)
+    redirect_to dash_menus_path(@player, message: message)
+  end
+
   def shop
     @message = params[:message]
   end

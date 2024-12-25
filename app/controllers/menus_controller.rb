@@ -43,6 +43,7 @@ class MenusController < ApplicationController
       skills: 1, baseskills: 1, used_bard: false,
       weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
     )
+
     redirect_to dash_menus_path(id: record.id)
   end
 

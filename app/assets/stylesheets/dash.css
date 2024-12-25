@@ -3,7 +3,7 @@
 }
 
 #footer_row {
-    max-height: 50px;
+    min-height: 50px;
 }
 
 .dash_panel {
@@ -55,6 +55,10 @@
 
 .status-span {
     width: 175px;
+}
+
+.trinket-span {
+
 }
 
 .text-span {

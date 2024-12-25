@@ -1,22 +1,22 @@
 <div class="row">
   <div class="d-flex justify-content-center">
     <span class="text-span status-span">
-      <b>HP:</b>
+      <i class="bi bi-bandaid" title="Hit Points"></i>
       <%= "#{@player.currenthp}/#{@player.maxhp}" %>
     </span>
 
     <span class="text-span status-span">
-      <b>Backstabs:</b>
+      <i class="bi bi-magic" title="Skills"></i>
       <%= "#{@player.skills}/#{@player.baseskills}" %>
     </span>
 
     <span class="text-span status-span">
-      <b>Attack:</b>
+      <i class="bi bi-fire" title="Total Attack"></i>
       <%= "#{@player.min_damage}-#{@player.max_damage}" %>
     </span>
 
     <span class="text-span status-span">
-      <b>Defense:</b>
+      <i class="bi bi-shield-plus" title="Total Defense"></i>
       <%= "#{@player.effective_defense}" %>
     </span>
   </div>
@@ -25,12 +25,15 @@
 <div class="row">
   <div class="d-flex justify-content-center">
     <span class="text-span status-span">
-      <b>Gold:</b>
+      <i class="bi bi-coin" title="Gold"></i>
       <%= "#{@player.gold}" %>
+
+      <i class="bi bi-gem" title="Jewels" style="margin-left: 5px;"></i>
+      <%= "#{@player.gems}" %>
     </span>
 
     <span class="text-span status-span">
-      <b>Exp:</b>
+      <i class="bi bi-trophy" title="Experience"></i>
       <%= "#{@player.exp}/#{@player.next_level.exp}" %>
     </span>
 

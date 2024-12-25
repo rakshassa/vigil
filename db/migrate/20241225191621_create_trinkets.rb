@@ -4,7 +4,8 @@ class CreateTrinkets < ActiveRecord::Migration[8.0]
       t.string :name
       t.string :desc
       t.integer :cost
-      t.string :effects
+      t.string :icon
+      t.jsonb :effects
 
       t.timestamps
     end

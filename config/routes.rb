@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       get :shop_armor
       get :buy_weapon
       get :buy_armor
+
+      get :jeweler
+      get :buy_trinket
     end
   end
 

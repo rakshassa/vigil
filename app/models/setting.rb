@@ -46,4 +46,8 @@ class Setting < ApplicationRecord
     def self.weekly_days
         Setting.where(name: "weekly_days").first_or_create(value: 7).value
     end
+
+    def self.gem_chance_percentage
+        Setting.where(name: "gem_chance_percentage").first_or_create(value: 25).value
+    end
 end

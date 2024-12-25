@@ -56,6 +56,16 @@ class Player < ApplicationRecord
         gold >= (item.cost-reimburse_armor_amount)
     end
 
+    def can_afford_trinket?(item)
+        gems >= item.cost
+    end
+
+    def buy_trinket(item)
+        update(gems: gems-item.cost)
+        PlayerTrinket.create(player_id: id, trinket_id: item.id)
+        increment_hours
+    end
+
     def buy_weapon(item)
         update(gold: gold-item.cost+reimburse_weapon_amount, weapon_id: item.id)
         increment_hours
@@ -119,15 +129,15 @@ class Player < ApplicationRecord
     end
 
     def effective_defense
-        basedef + armor.defense
+        result = basedef + armor.defense + PlayerTrinket.accumulate(id, "Defense")
     end
 
     def min_damage
-        baseatk + weapon.mindmg
+        baseatk + weapon.mindmg + PlayerTrinket.accumulate(id, "Attack")
     end
 
     def max_damage
-        baseatk + weapon.maxdmg
+        baseatk + weapon.maxdmg + PlayerTrinket.accumulate(id, "Attack")
     end
 
     def roll_dmg(is_skill)
@@ -145,6 +155,10 @@ class Player < ApplicationRecord
 
     def roll_crit_chance
         roll_chance(Setting.player_crit_chance_percentage)
+    end
+
+    def roll_gem_chance
+        roll_chance(Setting.gem_chance_percentage)
     end
 
     def mitigate_damage(base)

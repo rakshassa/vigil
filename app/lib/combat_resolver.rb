@@ -82,14 +82,17 @@ class CombatResolver
     def loot
         current_gold = @fight.player.gold
         current_exp = @fight.player.exp
+        current_gems = @fight.player.gems
 
         new_gold = @fight.monster.gold
         new_exp = @fight.monster.exp
 
-        # TODO: chance of finding a gem
+        found_gem = @fight.player.roll_gem_chance
+        new_gem = found_gem ? 1 : 0
+        gem_msg = found_gem ? "You also found a jewel!<br>" : ""
 
-        @fight.player.update(gold: current_gold + new_gold, exp: current_exp + new_exp)
-        "<br>You find #{new_gold} gold and gain #{new_exp} experience.<br>"
+        @fight.player.update(gold: current_gold + new_gold, exp: current_exp + new_exp, gems: current_gems + new_gem)
+        "<br>You find #{new_gold} gold and gain #{new_exp} experience.<br>" + gem_msg
     end
 
     # assumes the monster has hit the player
