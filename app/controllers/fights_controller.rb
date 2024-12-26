@@ -3,9 +3,6 @@ class FightsController < ApplicationController
   before_action :set_fight_player
 
   def boss
-    # move the day forward so we select the correct boss level
-    new_days = @player.days + 1
-    @player.update(days: new_days, hours: 0, used_bard: false, skills: @player.baseskills)
     @fight = EncounterSelector.new.boss_fight(@player)
     Rails.logger.info "Created Boss Fight: #{@fight.id}"
 

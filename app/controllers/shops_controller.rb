@@ -11,7 +11,13 @@ class ShopsController < ApplicationController
     item = Trinket.find(params[:trinket_id])
     return redirect_to jeweler_shops_path(@player, message: "The jeweler grumbles when he realizes you can't afford that.") unless @player.can_afford_trinket?(item)
 
-    message = "The jeweler hands you a #{item.name}.<br>You spend some time training with it."
+    message = "The jeweler hands you a #{item.name}."
+    if PlayerTrinket.accumulate(@player.id, "JewelryAction") < 0
+      # nothing more needs to be said
+    else
+      message += "<br>You wait while he constructs your order."
+    end
+
     @player.buy_trinket(item)
     redirect_to dash_menus_path(@player, message: message)
   end
@@ -33,7 +39,13 @@ class ShopsController < ApplicationController
     return redirect_to shop_weapons_shops_path(@player, message: "The shopkeeper grumbles when he realizes you can't afford that.") unless @player.can_afford_weapon?(item)
 
     olditem = Weapon.find(@player.weapon_id)
-    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the forge.<br>You spend some time training with it."
+    message = "The shopkeeper hands you your new #{item.name} and tosses your old #{olditem.name} into the forge."
+    if PlayerTrinket.accumulate(@player.id, "ShopAction") < 0
+      message += "<br>He is impressed when you already know how to use it."
+    else
+      message += "<br>You spend some time training with it."
+    end
+
     @player.buy_weapon(item)
     redirect_to dash_menus_path(@player, message: message)
   end

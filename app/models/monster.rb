@@ -13,7 +13,18 @@ class Monster < ApplicationRecord
         roll_variance(strength, Setting.monster_dmg_variance)
     end
 
-    def roll_hit
-        roll_chance(Setting.monster_hit_percentage)
+    def roll_hit(player_id)
+        base = Setting.monster_hit_percentage
+        miss_chance = 100 - base
+
+        if is_boss
+            extra_miss_mult = PlayerTrinket.accumulate(player_id, "BossMiss")
+            if extra_miss_mult != 0
+                miss_chance = (miss_chance * extra_miss_mult).ceil
+            end
+        end
+
+        total_hit_perc = 100 - miss_chance
+        roll_chance(total_hit_perc)
     end
 end

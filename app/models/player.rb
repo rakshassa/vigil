@@ -6,6 +6,11 @@ class Player < ApplicationRecord
     has_many :fights, dependent: :destroy
     has_many :player_trinkets, dependent: :destroy
 
+    def new_day
+        update(days: days + 1, hours: 0, used_bard: false, skills: baseskills, currenthp: maxhp)
+        populate_jeweler
+    end
+
     def bard_buff
         update(used_bard: true)
 
@@ -49,11 +54,11 @@ class Player < ApplicationRecord
     end
 
     def can_afford_weapon?(item)
-        gold >= (item.cost-reimburse_weapon_amount)
+        gold >= (item.effective_cost(self)-reimburse_weapon_amount)
     end
 
     def can_afford_armor?(item)
-        gold >= (item.cost-reimburse_armor_amount)
+        gold >= (item.effective_cost(self)-reimburse_armor_amount)
     end
 
     def can_afford_trinket?(item)
@@ -62,18 +67,20 @@ class Player < ApplicationRecord
 
     def buy_trinket(item)
         update(gems: gems-item.cost)
-        PlayerTrinket.create(player_id: id, trinket_id: item.id)
-        increment_hours
+        PlayerTrinket.where(player_id: id, trinket_id: item.id).first&.update(bought: true)
+        item.on_obtain(self)
+
+        increment_hours unless PlayerTrinket.accumulate(id, "JewelryAction") < 0
     end
 
     def buy_weapon(item)
-        update(gold: gold-item.cost+reimburse_weapon_amount, weapon_id: item.id)
-        increment_hours
+        update(gold: gold-item.effective_cost(self)+reimburse_weapon_amount, weapon_id: item.id)
+        increment_hours unless PlayerTrinket.accumulate(id, "ShopAction") < 0
     end
 
     def buy_armor(item)
-        update(gold: gold-item.cost+reimburse_armor_amount, armor_id: item.id)
-        increment_hours
+        update(gold: gold-item.effective_cost(self)+reimburse_armor_amount, armor_id: item.id)
+        increment_hours unless PlayerTrinket.accumulate(id, "ShopAction") < 0
     end
 
     # levels up the player - includes more HP, atk, def, and costs gold
@@ -102,17 +109,15 @@ class Player < ApplicationRecord
     end
 
     def healing_cost
-        missing_hp = maxhp - currenthp
-        max_healing = (gold/Setting.heal_cost_per_hp).floor
+        paid_healing = healing_max - PlayerTrinket.accumulate(id, "HealFree")
+        paid_healing = 0 if paid_healing < 0
 
-        actual_healing = [missing_hp, max_healing].min
-
-        (actual_healing * Setting.heal_cost_per_hp).floor
+        (paid_healing * Setting.heal_cost_per_hp(id)).floor
     end
 
     def healing_max
         missing_hp = maxhp - currenthp
-        max_healing = (gold/Setting.heal_cost_per_hp).floor
+        max_healing = (gold/Setting.heal_cost_per_hp(id)).floor + PlayerTrinket.accumulate(id, "HealFree")
 
         [missing_hp, max_healing].min
     end
@@ -129,15 +134,15 @@ class Player < ApplicationRecord
     end
 
     def effective_defense
-        result = basedef + armor.defense + PlayerTrinket.accumulate(id, "Defense")
+        basedef + armor.defense
     end
 
     def min_damage
-        baseatk + weapon.mindmg + PlayerTrinket.accumulate(id, "Attack")
+        baseatk + weapon.mindmg
     end
 
     def max_damage
-        baseatk + weapon.maxdmg + PlayerTrinket.accumulate(id, "Attack")
+        baseatk + weapon.maxdmg
     end
 
     def roll_dmg(is_skill)
@@ -145,20 +150,20 @@ class Player < ApplicationRecord
         result = Rands.rand(min_damage, max_damage)
 
         # modify for skill damage
-        result = result * Setting.skill_dmg_multiplier if is_skill
+        result = result * Setting.skill_dmg_multiplier(self) if is_skill
 
         # check for critical hit chance
-        result *= Setting.player_crit_dmg_multiplier if roll_crit_chance
+        result *= Setting.player_crit_dmg_multiplier(self) if roll_crit_chance
 
         result.ceil
     end
 
     def roll_crit_chance
-        roll_chance(Setting.player_crit_chance_percentage)
+        roll_chance(Setting.player_crit_chance_percentage(self))
     end
 
     def roll_gem_chance
-        roll_chance(Setting.gem_chance_percentage)
+        roll_chance(Setting.gem_chance_percentage(self))
     end
 
     def mitigate_damage(base)
@@ -175,20 +180,31 @@ class Player < ApplicationRecord
         hit_chance = Setting.player_hit_percentage
         miss_chance = 100 - hit_chance
         better = PlayerTrinket.accumulate(id, "Miss_Perc")
-        hit_chance += (miss_chance * better).floor
+        hit_chance += (miss_chance * better).floor if better != 0
         Rails.logger.info "Rolling Player Hit with chance: #{hit_chance}"
         roll_chance(hit_chance)
     end
 
     def roll_run
-        roll_chance(Setting.player_run_percentage)
+        roll_chance(Setting.player_run_percentage(id))
     end
 
     def self.make_new_thief
-        Player.create(
-          level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 0, baseatk: 5, basedef: 1,
+        record = Player.create(
+          level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 10, baseatk: 5, basedef: 1,
           skills: 1, baseskills: 1, used_bard: false,
           weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
         )
+        record.populate_jeweler
+        record
+    end
+
+    def populate_jeweler
+        max = Setting.jeweler_inventory(id)
+        choices = Trinket.not_owned(id).order(Arel.sql("RANDOM()")).limit(max)
+
+        choices.each do |trinket|
+            PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
+        end
     end
 end

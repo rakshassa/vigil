@@ -14,13 +14,14 @@ class EncounterSelector
     end
 
     def boss_fight(player)
-        records = Monster.where(level: player.days, is_boss: true)
+        records = Monster.where(level: player.days+1, is_boss: true)
 
         # select a random record
         monster = records.order(Arel.sql("RANDOM()")).take
 
         # store the fight
         start_msg = "You stand before a dangerous foe."
-        Fight.create(player_id: player.id, monster_id: monster.id, ended: false, currenthp: monster.hp, message: start_msg)
+        boss_hp = monster.hp + PlayerTrinket.accumulate(player.id, "BossHP")
+        Fight.create(player_id: player.id, monster_id: monster.id, ended: false, currenthp: boss_hp, message: start_msg)
     end
 end

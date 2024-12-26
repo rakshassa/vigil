@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_25_191647) do
   create_table "player_trinkets", force: :cascade do |t|
     t.bigint "trinket_id", null: false
     t.bigint "player_id", null: false
+    t.boolean "bought", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_player_trinkets_on_player_id"

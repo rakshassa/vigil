@@ -49,7 +49,7 @@ class CombatResolver
     end
 
     def monster_attack
-        if @fight.monster.roll_hit
+        if @fight.monster.roll_hit(@fight.player_id)
             return hit_player
         end
 
@@ -84,8 +84,8 @@ class CombatResolver
         current_exp = @fight.player.exp
         current_gems = @fight.player.gems
 
-        new_gold = @fight.monster.gold
-        new_exp = @fight.monster.exp
+        new_gold = (@fight.monster.roll_gold * (1 + PlayerTrinket.accumulate(@fight.player_id, "GoldLoot"))).floor
+        new_exp = (@fight.monster.roll_exp * (1 + PlayerTrinket.accumulate(@fight.player_id, "ExpLoot"))).floor
 
         found_gem = @fight.player.roll_gem_chance
         new_gem = found_gem ? 1 : 0

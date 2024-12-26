@@ -48,7 +48,7 @@ class MenusController < ApplicationController
 
     @message = params[:message]
     @message += "<br>" unless @message.blank?
-    @message = "#{@message}A dangerous foe approaches.  You prepare yourself - your skills are refreshed!" if @day_ended
+    @message = "#{@message}A dangerous foe approaches." if @day_ended
     @message = "Welcome to Vigil.<br><br>What would you like to do?" if @message.blank?
   end
 
@@ -71,6 +71,14 @@ class MenusController < ApplicationController
     end
     @day_ended = @player.day_ended?
     @disable_actions = @player.is_dead? || !@fight.ended || @day_ended
+
+    # if the player beat the boss
+    if @fight.ended && @fight.monster.is_boss
+      @player.new_day
+      msg = @fight.message + "<br>A new day begins.  You feel refreshed!"
+      @fight.update(message: msg)
+    end
+
     Rails.logger.info "Hours: #{@player.hours} with ended: #{@player.day_ended?} and disable: #{@disable_actions}"
   end
 end

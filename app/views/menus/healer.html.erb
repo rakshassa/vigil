@@ -14,7 +14,7 @@
     <div class="col justify-content-center monster-card">
       <div class="row">
         <span class="monster-title">
-          <%= "Healing costs #{Setting.heal_cost_per_hp} gold per HP." %>
+          <%= "Healing costs #{Setting.heal_cost_per_hp(@player.id)} gold per HP." %>
         </span>
         <br>
       </div>

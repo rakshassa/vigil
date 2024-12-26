@@ -1,4 +1,5 @@
 <% content_for :content_panel do %>
+<% hotkey_num = 1 %>
   <div class="row">
     <div class="col-2"></div>
     <div class="col justify-content-center monster-card">
@@ -22,16 +23,18 @@
             </tr>
           </thead>
           <tbody>
-            <% Weapon.all.find_each do |weapon| %>
+
+            <% Weapon.after(@player.weapon.id).find_each do |weapon| %>
             <tr>
               <th scope="row">
                 <div>
-                  <span class="badge badge-pill bg-success left_action_badge"><%= weapon.id %></span>
+                  <span class="badge badge-pill bg-success left_action_badge"><%= hotkey_num %></span>
                   <%= link_to "#{weapon.name}", buy_weapon_shops_path(@player, weapon_id: weapon.id), class: "shop_btn btn btn-warning rounded-pill" %>
                 </div>
               </th>
-              <td><%= "#{weapon.cost}" %></td>
+              <td><%= "#{weapon.effective_cost(@player)}" %></td>
               <td><%= "#{weapon.mindmg}-#{weapon.maxdmg}" %></td>
+              <% hotkey_num += 1 %>
             </tr>
             <% end %>
           </tbody>
@@ -40,7 +43,7 @@
 
       <div class="row">
         <div>
-          <span class="badge badge-pill bg-success left_action_badge"><%= Weapon.last.id + 1 %></span>
+          <span class="badge badge-pill bg-success left_action_badge"><%= hotkey_num %></span>
           <%= link_to "Leave", dash_menus_path(@player, message: "You leave the shop feeling like you got hustled.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
         </div>
       </div>
