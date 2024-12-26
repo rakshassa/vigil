@@ -7,7 +7,7 @@
           <% if @message.blank? %>
             <%= raw("This armor looks sturdy.") %>
           <% else %>
-            <%= raw(@message) %>
+            <%= raw(sanitize @message) %>
           <% end %>
           <%= raw("<br>The shopkeeper agrees to pay you #{@player.reimburse_armor_amount} gold for your #{@player.armor.name}.") %>
         </span>

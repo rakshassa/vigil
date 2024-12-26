@@ -176,7 +176,7 @@ class Player < ApplicationRecord
         miss_chance = 100 - hit_chance
         better = PlayerTrinket.accumulate(id, "Miss_Perc")
         hit_chance += (miss_chance * better).floor
-
+        Rails.logger.info "Rolling Player Hit with chance: #{hit_chance}"
         roll_chance(hit_chance)
     end
 

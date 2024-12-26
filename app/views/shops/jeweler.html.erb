@@ -7,7 +7,7 @@
           <% if @message.blank? %>
             <%= raw("Today's stock is very shiny.") %>
           <% else %>
-            <%= raw(@message) %>
+            <%= raw(sanitize @message) %>
           <% end %>
         </span>
       </div>

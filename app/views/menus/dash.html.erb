@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col justify-content-center monster-card">
           <span class="text-span">
-            <%= raw(@message) %>
+            <%= raw(sanitize @message) %>
           </span>
         </div>
       </div>

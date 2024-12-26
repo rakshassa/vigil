@@ -7,9 +7,9 @@
           <% if @message.blank? %>
             <%= raw("You gaze upon the myriad weapons before you.") %>
           <% else %>
-            <%= raw(@message) %>
+            <%= raw(sanitize @message) %>
           <% end %>
-          <%= raw("<br>The shopkeeper agrees to pay you #{@player.reimburse_weapon_amount} gold for your #{@player.weapon.name}.") %>
+          <%= raw("<br>The shopkeeper agrees to pay you #{@player.reimburse_weapon_amount} gold for your #{sanitize @player.weapon.name}.") %>
         </span>
       </div>
       <div class="row">

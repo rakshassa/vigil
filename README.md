@@ -1,12 +1,14 @@
 # TODO
 
 - track rounds in a single combat to allow trinkets/abilities to trigger on specific rounds
-- trinkets - special modifiers with positive/negative tradeoffs - unlimited carry
-- potions - one time use (max carry)
+- jeweler only sells random selection of two trinkets per day
+- make more trinkets
+- brakeman findings
+- potions - one time use (max carry) - alchemist?
 - switch get/post verbs
 - non-battle encounters
+- remove shop items at/below current item
 
-- Action: jeweler
 - Action: scouts
 
 UX
