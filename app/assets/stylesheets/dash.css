@@ -109,3 +109,25 @@ div.glass-pane {
 #status_panel {
     min-height: 110px;
 }
+
+.potion-icon {
+    font-size: 2.5em;
+    color: black;
+}
+
+.discard-icon {
+    font-size: 1em;
+    color: red;
+}
+
+.potion-span {
+    background:white;
+    border-radius: .375rem;
+    display: inline-block;
+    text-align: center;
+    padding: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

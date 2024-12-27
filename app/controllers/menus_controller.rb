@@ -1,16 +1,16 @@
 class MenusController < ApplicationController
   before_action :set_player, except: %i[login start_game]
-  before_action :ensure_no_fight, except: %i[wilderness]
+  # before_action :ensure_no_fight, except: %i[wilderness]
   before_action :default_disables
 
   def bard
   end
 
   def bard_buff
-    redirect_to dash_menus_path(@player, message: "Jaskier is too tired to perform again today.") if @player.used_bard
+    redirect_to dash_menus_path(player_id: @player.id, message: "Jaskier is too tired to perform again today.") if @player.used_bard
 
     message = @player.bard_buff
-    redirect_to dash_menus_path(@player, message: message)
+    redirect_to dash_menus_path(player_id: @player.id, message: message)
   end
 
   def healer
@@ -18,18 +18,18 @@ class MenusController < ApplicationController
 
   def heal
     @player.heal
-    redirect_to dash_menus_path(@player, message: "You heal as much as you can afford.")
+    redirect_to dash_menus_path(player_id: @player.id, message: "You heal as much as you can afford.")
   end
 
   def training
   end
 
   def train
-    return redirect_to dash_menus_path(@player, message: "You are not ready to train.") unless @player.can_level?
-    return redirect_to dash_menus_path(@player, message: "You can't afford to train.") if @player.gold < @player.next_level.gold
+    return redirect_to dash_menus_path(player_id: @player.id, message: "You are not ready to train.") unless @player.can_level?
+    return redirect_to dash_menus_path(player_id: @player.id, message: "You can't afford to train.") if @player.gold < @player.next_level.gold
 
     message = @player.level_up
-    redirect_to dash_menus_path(@player, message: message)
+    redirect_to dash_menus_path(player_id: @player.id, message: message)
   end
 
   def login
@@ -40,7 +40,7 @@ class MenusController < ApplicationController
 
     record = Player.make_new_thief
 
-    redirect_to dash_menus_path(id: record.id)
+    redirect_to dash_menus_path(player_id: record.id)
   end
 
   def dash
@@ -58,6 +58,7 @@ class MenusController < ApplicationController
     raise ActionController::BadRequest.new(), "More than one ongoing fight." if records.count > 1
 
     fight_id = params[:fight_id]&.to_i
+    fight_id = records.first.id if fight_id.blank? && records.count == 1
     raise ActionController::BadRequest.new(), "Wrong Fight ID" if records.count == 1 && records.first.id != fight_id
 
     if fight_id.present?
@@ -73,7 +74,7 @@ class MenusController < ApplicationController
     @disable_actions = @player.is_dead? || !@fight.ended || @day_ended
 
     # if the player beat the boss
-    if @fight.ended && @fight.monster.is_boss
+    if @fight.ended && @fight.monster.is_boss && @fight.player.currenthp > 0
       @player.new_day
       msg = @fight.message + "<br>A new day begins.  You feel refreshed!"
       @fight.update(message: msg)

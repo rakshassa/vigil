@@ -3,8 +3,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   def set_player
-    playerid = params[:id]
-    playerid = Player.first.id if playerid.nil?
+    playerid = params[:player_id]
 
     @player = Player.find(playerid)
   end
@@ -13,7 +12,7 @@ class ApplicationController < ActionController::Base
     record = Fight.where(player_id: @player, ended: false).first
     return if record.nil?
 
-    redirect_to wilderness_menus_path(fight_id: record.id), notice: "Your attempt to cheat has been logged. Do not continue. You have been warned."
+    redirect_to wilderness_menus_path(player_id: @player.id, fight_id: record.id), notice: "Your attempt to cheat has been logged. Do not continue. You have been warned."
   end
 
   def default_disables

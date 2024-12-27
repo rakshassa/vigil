@@ -73,6 +73,14 @@ class Setting < ApplicationRecord
         result.floor
     end
 
+    def self.alchemist_inventory(player_id)
+        base = Setting.where(name: "alchemist_inventory").first_or_create(value: 3).value
+        result = base + PlayerTrinket.accumulate(player_id, "AlchemistMax")
+        result = 0 if result < 0
+
+        result.floor
+    end
+
     def self.jeweler_inventory(player_id)
         base = Setting.where(name: "jeweler_inventory").first_or_create(value: 3).value
         result = base + PlayerTrinket.accumulate(player_id, "JewelryMax")

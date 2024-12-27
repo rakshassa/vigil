@@ -31,12 +31,12 @@
         <% if @player.can_level? %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Train", train_menus_path(@player), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Train", train_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
         </div>
         <% end %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">2</span>
-          <%= link_to "Leave", dash_menus_path(@player, message: "You leave without training.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Leave", dash_menus_path(player_id: @player.id, message: "You leave without training.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
         </div>
       </div>
     </div>

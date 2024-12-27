@@ -5,10 +5,11 @@ class Player < ApplicationRecord
 
     has_many :fights, dependent: :destroy
     has_many :player_trinkets, dependent: :destroy
+    has_many :player_potions, dependent: :destroy
 
     def new_day
         update(days: days + 1, hours: 0, used_bard: false, skills: baseskills, currenthp: maxhp)
-        populate_jeweler
+        populate_shops
     end
 
     def bard_buff
@@ -65,10 +66,35 @@ class Player < ApplicationRecord
         gems >= item.cost
     end
 
+    def can_carry_another_potion?
+        player_potions.owned.unused.count < maxpotions
+    end
+
+    def can_afford_potion?(item)
+        gems >= item.cost
+    end
+
+    def buy_potion(item)
+        update(gems: gems-item.potion.cost)
+        item.update(bought: true)
+
+        increment_hours unless PlayerTrinket.accumulate(id, "AlchemyAction") < 0
+    end
+
+    def use_potion(item)
+        message = "You drink your #{item.potion.name} potion.<br>"
+
+        # PlayerPotion.consume will set it to used:true
+        item.consume
+        item.destroy if item.potion.immediate
+
+        message
+    end
+
     def buy_trinket(item)
-        update(gems: gems-item.cost)
-        PlayerTrinket.where(player_id: id, trinket_id: item.id).first&.update(bought: true)
-        item.on_obtain(self)
+        update(gems: gems-item.trinket.cost)
+        item.update(bought: true)
+        item.trinket.on_obtain(self)
 
         increment_hours unless PlayerTrinket.accumulate(id, "JewelryAction") < 0
     end
@@ -158,7 +184,27 @@ class Player < ApplicationRecord
         result.ceil
     end
 
+    def trigger_auto_crit
+        # has the player used a potion that has this effect?
+        records = player_potions.used_with_effect("AutoCrit")
+        return false if records.blank?
+
+        # this one has been triggered - remove it
+        # if there were multiple of the same potion used, only trigger one
+        # records.first.destroy
+        # this is an array, so we can't just destroy the record
+        PlayerPotion.find(records.first.id).destroy
+        Rails.logger.info "Triggered Auto Crit"
+        true
+    end
+
+    def has_auto_crit?
+        player_potions.used_with_effect("AutoCrit").present?
+    end
+
     def roll_crit_chance
+        return true if trigger_auto_crit
+
         roll_chance(Setting.player_crit_chance_percentage(self))
     end
 
@@ -176,6 +222,9 @@ class Player < ApplicationRecord
     end
 
     def roll_hit
+        # do not allow missing when auto crit is pending
+        return true if has_auto_crit?
+
         # adjust hit chance by trinkets
         hit_chance = Setting.player_hit_percentage
         miss_chance = 100 - hit_chance
@@ -191,20 +240,32 @@ class Player < ApplicationRecord
 
     def self.make_new_thief
         record = Player.create(
-          level_id: Level.first.id, maxhp: 10, currenthp: 10, gold: 0, gems: 10, baseatk: 5, basedef: 1,
-          skills: 1, baseskills: 1, used_bard: false,
+          level_id: Level.first.id, maxhp: 15, currenthp: 15, gold: 0, gems: 1, baseatk: 4, basedef: 1,
+          skills: 1, baseskills: 1, used_bard: false, maxpotions: 3,
           weapon_id: Weapon.first.id, armor_id: Armor.first.id, days: 0, hours: 0, exp: 0
         )
-        record.populate_jeweler
+        record.populate_shops
         record
     end
 
-    def populate_jeweler
+    def populate_shops
+        # clear the shops
+        player_trinkets.where(bought: false).destroy_all
+        player_potions.where(bought: false).destroy_all
+
+        # repopulate the jeweler with trinkets
         max = Setting.jeweler_inventory(id)
         choices = Trinket.not_owned(id).order(Arel.sql("RANDOM()")).limit(max)
 
         choices.each do |trinket|
             PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
+        end
+
+        # repopulate the alchemist with potions
+        max = Setting.alchemist_inventory(id)
+        choices = Potion.order(Arel.sql("RANDOM()")).limit(max)
+        choices.each do |potion|
+            PlayerPotion.create(player_id: id, potion_id: potion.id, bought: false)
         end
     end
 end

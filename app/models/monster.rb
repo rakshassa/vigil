@@ -13,7 +13,21 @@ class Monster < ApplicationRecord
         roll_variance(strength, Setting.monster_dmg_variance)
     end
 
+    def trigger_auto_miss(player_id)
+        # has the player used a potion that has the auto-miss effect?
+        records = PlayerPotion.where(player_id: player_id).used_with_effect("EnemyMiss")
+        return false if records.blank?
+
+        # this one has been triggered - remove it
+        # if there were multiple of the same potion used, only trigger one
+        records.first.destroy
+        Rails.logger.info "Triggered Enemy Auto Miss"
+        true
+    end
+
     def roll_hit(player_id)
+        return false if trigger_auto_miss(player_id)
+
         base = Setting.monster_hit_percentage
         miss_chance = 100 - base
 

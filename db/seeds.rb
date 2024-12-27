@@ -76,6 +76,7 @@ Setting.where(name: "daily_hours").first_or_create(value: 24)
 Setting.where(name: "weekly_days").first_or_create(value: 7)
 Setting.where(name: "gem_chance_percentage").first_or_create(value: 25)
 Setting.where(name: "jeweler_inventory").first_or_create(value: 3)
+Setting.where(name: "alchemist_inventory").first_or_create(value: 3)
 
 Trinket.where(name: "Precision").first_or_create(desc: "You miss half as often.", cost: 2, icon: "bi-bullseye", effects: [{ name: "Miss_Perc", value: 0.5 }])
 Trinket.where(name: "Forged").first_or_create(desc: "Increase attack by 2.", cost: 1, icon: "bi-hammer", effects: [{ name: "Attack", value: 2 }])
@@ -98,9 +99,13 @@ Trinket.where(name: "Puncture").first_or_create(desc: "You critically strike mor
 Trinket.where(name: "Twist").first_or_create(desc: "You inflict more damage when critically striking (50%).", cost: 2, icon: "bi-lightning", effects: [{ name: "CritDmg", value: 0.5 }])
 Trinket.where(name: "Tactics").first_or_create(desc: "Your skills do more damage, but critical hits do less.", cost: 1, icon: "bi-yin-yang", effects: [{ name: "CritDmg", value: -0.5 }, { name: "SkillDmg", value: 0.5 }])
 
+Potion.where(name: "Protein").first_or_create(desc: "Your next attack will critically hit", cost: 1, icon: "bi-egg", effects: [{ name: "AutoCrit", value: 100 }], immediate: false)
+Potion.where(name: "Blind").first_or_create(desc: "Your enemy will miss its next attack.", cost: 1, icon: "bi-eye-slash", effects: [{ name: "EnemyMiss", value: 1.0 }], immediate: false)
+Potion.where(name: "Chronos").first_or_create(desc: "Turn the clock back 3 hours.", cost: 1, icon: "bi-clock", effects: [{ name: "Hours", value: -3 }], immediate: true)
+Potion.where(name: "Recharge").first_or_create(desc: "All of your skills uses are refilled.", cost: 1, icon: "bi-clock-history", effects: [{ name: "RefillSkills", value: 100 }], immediate: true)
 
-# icons: clock, clock-fill, clock-history, eye-slash
+# icons: clock-fill
 # cloud-drizzle, cloud-moon, cloud-sun, credit-card
-# droplet, egg, emoji-laughing, eye, eye-slash, flower1
+# droplet, emoji-laughing, eye, flower1
 # hourglass-bottom,
-# peace, shop, trash, umbrella
+# peace, shop, umbrella

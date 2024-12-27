@@ -28,14 +28,17 @@ Rails.application.routes.draw do
 
       get :jeweler
       get :buy_trinket
+
+      get :alchemist
+      get :buy_potion
+      post :use_potion
+      delete :discard_potion
     end
   end
 
   resources :fights do
     collection do
       get :boss
-    end
-    member do
       get :run
       get :attack
       get :backstab

@@ -1,0 +1,13 @@
+
+<% @player.player_potions.owned.unused.find_each do |ppotion| %>
+<span class="potion-span">
+  <%= link_to use_potion_shops_path(player_id: @player.id, potion_id: ppotion.potion.id, fight_id: params[:fight_id]), data: { "turbo-method": :post, "turbo-confirm": "Use this potion?" } do %>
+    <i class="potion-icon bi <%= ppotion.potion.icon %>" title=<%= raw("\"#{ppotion.potion.name}: #{ppotion.potion.desc}\"") %>></i>
+  <% end %>
+
+  <%= link_to discard_potion_shops_path(player_id: @player.id, potion_id: ppotion.potion.id, fight_id: params[:fight_id]), data: { "turbo-method": :delete, "turbo-confirm": "Discard this potion?" } do %>
+      <i class="discard-icon bi bi-trash" title="Discard"></i>
+  <% end %>
+</span>
+<% end %>
+
