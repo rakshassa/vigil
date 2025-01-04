@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       get :run
       get :attack
       get :backstab
+      get :select_prize
+      post :prize_selection
     end
   end
 

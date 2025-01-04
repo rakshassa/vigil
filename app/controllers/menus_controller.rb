@@ -75,9 +75,7 @@ class MenusController < ApplicationController
 
     # if the player beat the boss
     if @fight.ended && @fight.monster.is_boss && @fight.player.currenthp > 0
-      @player.new_day
-      msg = @fight.message + "<br>A new day begins.  You feel refreshed!"
-      @fight.update(message: msg)
+      return redirect_to select_prize_fights_path(player_id: @player.id, fight_id: @fight.id)
     end
 
     Rails.logger.info "Hours: #{@player.hours} with ended: #{@player.day_ended?} and disable: #{@disable_actions}"

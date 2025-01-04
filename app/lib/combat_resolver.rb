@@ -87,7 +87,8 @@ class CombatResolver
         new_gold = (@fight.monster.roll_gold * (1 + PlayerTrinket.accumulate(@fight.player_id, "GoldLoot"))).floor
         new_exp = (@fight.monster.roll_exp * (1 + PlayerTrinket.accumulate(@fight.player_id, "ExpLoot"))).floor
 
-        found_gem = @fight.player.roll_gem_chance
+        # boss always gives a gem
+        found_gem = @fight.monster.is_boss ? true : @fight.player.roll_gem_chance
         new_gem = found_gem ? 1 : 0
         gem_msg = found_gem ? "You also found a jewel!<br>" : ""
 

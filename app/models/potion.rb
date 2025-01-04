@@ -12,8 +12,12 @@ class Potion < ApplicationRecord
         effects.each do |effect|
             ename = effect["name"]
             evalue = effect["value"]
+
             player.update(hours: player.hours + evalue) if ename == "Hours"
-            player.update(skills: player.maxskills) if ename == "RefillSkills" # doesn't use the value
+            player.update(skills: player.baseskills) if ename == "RefillSkills" # doesn't use the value
+            player.update(gold: player.gold * 1.1) if ename == "MoreGold"
+            player.update(hp: player.maxhp) if ename == "FullHeal"
+            player.update(used_bard: false) if ename == "BardSong"
         end
     end
 end

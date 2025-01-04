@@ -10,7 +10,6 @@ class PlayerTrinket < ApplicationRecord
     PlayerTrinket.joins(:trinket).where(player_id: player_id, bought: true).find_each do |ptrinket|
       effects = ptrinket.trinket.effects
       effects.each do |effect|
-        Rails.logger.info "Logging Effect: #{effect}"
         sum += effect["value"] if effect["name"] == effect_name
       end
     end

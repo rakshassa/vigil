@@ -24,6 +24,10 @@
     <%= link_to "Jeweler", jeweler_shops_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
   </div>
   <div>
+    <span class="badge badge-pill bg-success left_action_badge">A</span>
+    <%= link_to "Alchemist", alchemist_shops_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+  </div>
+  <div>
     <span class="badge badge-pill bg-success left_action_badge">B</span>
     <%= link_to "Bard", bard_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
     <% unless @player.used_bard %>
@@ -33,9 +37,5 @@
   <div>
     <span class="badge badge-pill bg-success left_action_badge">H</span>
     <%= link_to "Healer", healer_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
-  </div>
-  <div>
-    <span class="badge badge-pill bg-success left_action_badge">A</span>
-    <%= link_to "Alchemist", alchemist_shops_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
   </div>
 </div>

@@ -15,6 +15,7 @@ class Trinket < ApplicationRecord
             player.update(basedef: player.basedef + evalue) if ename == "Defense"
             player.update(baseatk: player.baseatk + evalue) if ename == "Attack"
             player.update(baseskills: player.baseskills + evalue, skills: player.skills + evalue) if ename == "MaxSkills"
+            player.add_jewelry_shop_inventory(evalue) if ename == "JewelryMax"
         end
     end
 

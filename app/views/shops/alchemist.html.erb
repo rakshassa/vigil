@@ -1,7 +1,6 @@
 <% content_for :content_panel do %>
 <% hotkey_num = 1 %>
   <div class="row">
-    <div class="col-1"></div>
     <div class="col justify-content-center monster-card">
       <div class="row">
         <span>
@@ -25,14 +24,14 @@
           <tbody>
             <% PlayerPotion.not_owned(@player.id).find_each do |available| %>
             <tr>
-              <th scope="row">
+              <th scope="row" class="col-3">
                 <div>
                   <span class="badge badge-pill bg-success left_action_badge"><%= hotkey_num %></span>
                   <%= link_to "#{available.potion.name}", buy_potion_shops_path(player_id: @player.id, potion_id: available.potion.id), class: "shop_btn btn btn-warning rounded-pill" %>
                 </div>
               </th>
-              <td><%= "#{available.potion.cost}" %></td>
-              <td><%= "#{available.potion.desc}" %></td>
+              <td class="col-1"><%= "#{available.potion.cost}" %></td>
+              <td class="col"><%= "#{available.potion.desc}" %></td>
               <% hotkey_num += 1 %>
             </tr>
             <% end %>
@@ -47,7 +46,6 @@
         </div>
       </div>
     </div>
-    <div class="col-1"></div>
   </div>
 <% end %>
 

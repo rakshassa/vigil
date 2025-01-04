@@ -88,4 +88,12 @@ class Setting < ApplicationRecord
 
         result.floor
     end
+
+    def self.boss_prizes(player_id)
+        base = Setting.where(name: "boss_prizes").first_or_create(value: 3).value
+        result = base + PlayerTrinket.accumulate(player_id, "BossPrizeMax")
+        result = 0 if result < 0
+
+        result.floor
+    end
 end

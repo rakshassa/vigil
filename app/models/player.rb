@@ -248,6 +248,14 @@ class Player < ApplicationRecord
         record
     end
 
+    def add_jewelry_shop_inventory(qty)
+        choices = Trinket.not_owned(id).order(Arel.sql("RANDOM()")).limit(qty)
+
+        choices.each do |trinket|
+            PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
+        end
+    end
+
     def populate_shops
         # clear the shops
         player_trinkets.where(bought: false).destroy_all
@@ -255,11 +263,7 @@ class Player < ApplicationRecord
 
         # repopulate the jeweler with trinkets
         max = Setting.jeweler_inventory(id)
-        choices = Trinket.not_owned(id).order(Arel.sql("RANDOM()")).limit(max)
-
-        choices.each do |trinket|
-            PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
-        end
+        add_jewelry_shop_inventory(max)
 
         # repopulate the alchemist with potions
         max = Setting.alchemist_inventory(id)

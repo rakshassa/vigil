@@ -2,8 +2,9 @@ class EncounterSelector
     def select(player)
         # TODO: select non-monsters sometimes, too
 
-        # limit to player level
-        records = Monster.where(level: player.level.id, is_boss: false)
+        # limit to player level and/or day-counter.
+        level = [player.level.id, (player.days+1)].max
+        records = Monster.where(level: level, is_boss: false)
 
         # select a random record
         monster = records.order(Arel.sql("RANDOM()")).take
