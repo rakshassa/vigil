@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  level: 1
+  maxhp: 1
+  currenthp: 1
+  gold: 1
+  gems: 1
+  baseatk: 1
+  basedef: 1
+  skills: 1
+  weapon: 1
+  armor: 1
+  days: 1
+  hours: 1
+
+two:
+  level: 1
+  maxhp: 1
+  currenthp: 1
+  gold: 1
+  gems: 1
+  baseatk: 1
+  basedef: 1
+  skills: 1
+  weapon: 1
+  armor: 1
+  days: 1
+  hours: 1

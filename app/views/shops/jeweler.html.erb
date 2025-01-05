@@ -1,0 +1,52 @@
+<% content_for :content_panel do %>
+<% hotkey_num = 1 %>
+  <div class="row">
+    <div class="col justify-content-center monster-card">
+      <div class="row">
+        <span>
+          <% if @message.blank? %>
+            <%= raw("Today's stock is very shiny.") %>
+          <% else %>
+            <%= raw(sanitize @message) %>
+          <% end %>
+        </span>
+      </div>
+      <div class="row">
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Gems</th>
+              <th scope="col">Effects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% PlayerTrinket.not_owned(@player.id).find_each do |ptrinket| %>
+            <tr>
+              <th scope="row" class="col-3">
+                <div>
+                  <span class="badge badge-pill bg-success left_action_badge"><%= hotkey_num %></span>
+                  <%= link_to "#{ptrinket.trinket.name}", buy_trinket_shops_path(player_id: @player.id, trinket_id: ptrinket.trinket.id), class: "shop_btn btn btn-warning rounded-pill", "data-hotkey": hotkey_num, "data-turbo-method": :post %>
+                </div>
+              </th>
+              <td class="col-1"><%= "#{ptrinket.trinket.cost}" %></td>
+              <td class="col"><%= "#{ptrinket.trinket.desc}" %></td>
+              <% hotkey_num += 1 %>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row">
+        <div>
+          <span class="badge badge-pill bg-success left_action_badge"><%= hotkey_num %></span>
+          <%= link_to "Leave", dash_menus_path(player_id: @player.id, message: "You leave the shop feeling like you got hustled.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill", "data-hotkey": hotkey_num %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/mainframe" %>

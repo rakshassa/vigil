@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+<div class="container-fluid dash">
+  <div class="row" id="header_row">
+    <div class="col-3 dash_panel" id="settings_panel">
+
+    </div>
+    <div class="col-8 dash_panel" id="timing_panel">
+        <div class="d-flex justify-content-center">
+            <span class="text-span">Welcome to Vigil</span>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3 dash_panel d-flex justify-content-center" id="actions_panel">
+
+    </div>
+    <div class="col-8 dash_panel" id="content_panel">
+        <div class="d-flex justify-content-center">
+            <div id="monster-actions" class="row">
+                <div class="col">
+                    <span class="badge badge-pill bg-success left_action_badge">1</span>
+                    <%= link_to "Start as a Thief", start_game_menus_path, class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1, "data-turbo-method": :post %>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row" id="footer_row">
+    <div class="col-3 dash_panel" id="context_panel">
+
+    </div>
+    <div class="col-8 dash_panel" id="status_panel">
+
+    </div>
+  </div>
+</div>

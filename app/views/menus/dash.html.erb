@@ -1,15 +1,25 @@
-Welcome to the show
-
-<div class="container">
+<% content_for :content_panel do %>
   <div class="row">
-    <div class="col-sm">
-      One of three columns
+    <div class="col-2"></div>
+    <div class="col">
+      <div class="row">
+        <div class="col justify-content-center monster-card">
+          <span class="text-span">
+            <%= raw(sanitize @message) %>
+          </span>
+        </div>
+      </div>
+      <% if @day_ended %>
+      <div class="row">
+        <div class="col justify-content-center monster-card">
+          <span class="badge badge-pill bg-success left_action_badge">1</span>
+          <%= link_to "Continue", boss_fights_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1 %>
+        </div>
+      </div>
+      <% end %>
     </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
+    <div class="col-2"></div>
   </div>
-</div>
+<% end %>
+
+<%= render "layouts/mainframe" %>

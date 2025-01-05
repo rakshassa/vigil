@@ -1,0 +1,14 @@
+<% if @disable_actions %>
+<div class="glass-pane">
+</div>
+<% end %>
+
+<div class="btn-group-vertical">
+  <%= action_link("Wilderness", 'w', wilderness_menus_path(player_id: @player.id, fight_id: nil)) %>
+  <%= action_link("Training", 't', training_menus_path(player_id: @player.id), flag: @player.can_level?) %>
+  <%= action_link("Shop", 's', shop_shops_path(player_id: @player.id)) %>
+  <%= action_link("Jeweler", 'j', jeweler_shops_path(player_id: @player.id)) %>
+  <%= action_link("Alchemist", 'a', alchemist_shops_path(player_id: @player.id)) %>
+  <%= action_link("Bard", 'b', bard_menus_path(player_id: @player.id), flag: !@player.used_bard) %>
+  <%= action_link("Healer", 'h', healer_menus_path(player_id: @player.id)) %>
+</div>

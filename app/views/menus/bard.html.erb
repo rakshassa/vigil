@@ -1,0 +1,36 @@
+<% content_for :content_panel do %>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="d-flex justify-content-center">
+      <span class="text-span">
+        <%= raw("An attractive young man in tight pants is tuning up his instruments.<br>He asks 'Would you like to hear a tune?'<br>") %>
+      </span>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col justify-content-center monster-card">
+      <div class="row">
+        <span class="monster-title">
+          <%= "You may request a tune from Jaskier once per day.  The results are improved by your level." %>
+        </span>
+        <br>
+      </div>
+      <div id="monster-actions" class="row">
+        <div class="col">
+          <span class="badge badge-pill bg-success left_action_badge">1</span>
+          <%= link_to "Listen", bard_buff_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1, "data-turbo-method": :post %>
+        </div>
+        <div class="col">
+          <span class="badge badge-pill bg-success left_action_badge">2</span>
+          <%= link_to "Leave", dash_menus_path(player_id: @player.id, message: "You leave without tipping.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 2 %>
+        </div>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+<% end %>
+
+<%= render "layouts/mainframe" %>

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="d-flex justify-content-center">
+    <span class="text-span status-span <%= "lowhp" if @player.lowhp? %>">
+      <i class="bi bi-bandaid" title="Hit Points"></i>
+      <%= "#{@player.currenthp}/#{@player.maxhp}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <i class="bi bi-magic" title="Skills"></i>
+      <%= "#{@player.skills}/#{@player.baseskills}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <i class="bi bi-fire" title="Total Attack"></i>
+      <%= "#{@player.min_damage}-#{@player.max_damage}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <i class="bi bi-shield-plus" title="Total Defense"></i>
+      <%= "#{@player.effective_defense}" %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="d-flex justify-content-center">
+    <span class="text-span status-span">
+      <i class="bi bi-coin" title="Gold"></i>
+      <%= "#{@player.gold}" %>
+
+      <i class="bi bi-gem" title="Jewels" style="margin-left: 5px;"></i>
+      <%= "#{@player.gems}" %>
+    </span>
+
+    <span class="text-span status-span <%= "ready-to-level" if @player.can_level? %>">
+      <i class="bi bi-trophy" title="Experience"></i>
+      <%= "#{@player.exp}/#{@player.next_level.exp}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <span class="badge badge-pill bg-success top_label_badge">Weapon</span>
+      <%= "#{@player.weapon.name}" %>
+    </span>
+
+    <span class="text-span status-span">
+      <span class="badge badge-pill bg-success top_label_badge">Armor</span>
+      <%= "#{@player.armor.name}" %>
+    </span>
+  </div>
+</div>
