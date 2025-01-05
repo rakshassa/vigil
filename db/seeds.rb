@@ -44,11 +44,11 @@ Monster.where(is_boss: true, name: "Shambling Zombie", level: 2, strength: 20, e
 Monster.where(is_boss: true, name: "White Ape", level: 2, strength: 18, exp: 40, hp: 50, gold: 100, weapon: "smashes you with his fists", death: "It howls with its last breath.").first_or_create
 Monster.where(is_boss: true, name: "Viper", level: 2, strength: 22, exp: 42, hp: 26, gold: 90, weapon: "sinks his fangs deep into your leg", death: "It lays still.").first_or_create
 
-Monster.where(name: "Tiny Dancer", level: 3, strength: 18, exp: 20, hp: 12, gold: 46, weapon: "headbutts you", death: "It Quivers until lifeless.  ").first_or_create
-Monster.where(name: "Whirling Dervish", level: 3, strength: 17, exp: 25, hp: 19, gold: 32, weapon: "sticks you with a pointy branch", death: "He falls on his face.  ").first_or_create
-Monster.where(name: "Swarm of Mites", level: 3, strength: 16, exp: 27, hp: 15, gold: 41, weapon: "stabs you in the thigh", death: "It falls to the floor.  ").first_or_create
+Monster.where(name: "Tiny Dancer", level: 3, strength: 18, exp: 20, hp: 22, gold: 46, weapon: "headbutts you", death: "It Quivers until lifeless.  ").first_or_create
+Monster.where(name: "Whirling Dervish", level: 3, strength: 17, exp: 25, hp: 29, gold: 32, weapon: "sticks you with a pointy branch", death: "He falls on his face.  ").first_or_create
+Monster.where(name: "Swarm of Mites", level: 3, strength: 16, exp: 27, hp: 25, gold: 41, weapon: "stabs you in the thigh", death: "It falls to the floor.  ").first_or_create
 Monster.where(name: "Crackling Cloud", level: 3, strength: 23, exp: 39, hp: 26, gold: 62, weapon: "drinks your blood", death: "His humming stops.  ").first_or_create
-Monster.where(name: "Speckled Serpent", level: 3, strength: 21, exp: 21, hp: 18, gold: 105, weapon: "burns you with his palm", death: "Its corpse melds into the earth.  ").first_or_create
+Monster.where(name: "Speckled Serpent", level: 3, strength: 21, exp: 21, hp: 38, gold: 105, weapon: "burns you with his palm", death: "Its corpse melds into the earth.  ").first_or_create
 Monster.where(name: "Derek", level: 3, strength: 25, exp: 25, hp: 43, gold: 81, weapon: "gnaws on your leg", death: "Its corpse rolls away from you.  ").first_or_create
 
 Monster.where(is_boss: true, name: "JT the Airman", level: 3, strength: 30, exp: 55, hp: 72, gold: 130, weapon: "beats you down with his sarcasm", death: "He seems confused as he falls over.").first_or_create

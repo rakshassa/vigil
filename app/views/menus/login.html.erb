@@ -17,7 +17,12 @@
     </div>
     <div class="col-8 dash_panel" id="content_panel">
         <div class="d-flex justify-content-center">
-            <%= link_to "Start as a Thief", start_game_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+            <div id="monster-actions" class="row">
+                <div class="col">
+                    <span class="badge badge-pill bg-success left_action_badge">1</span>
+                    <%= link_to "Start as a Thief", start_game_menus_path, class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1, "data-turbo-method": :post %>
+                </div>
+            </div>
         </div>
     </div>
   </div>

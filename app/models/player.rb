@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
+    attr_reader :was_crit
+
     belongs_to :weapon, optional: false
     belongs_to :armor, optional: false
     belongs_to :level, optional: false
@@ -127,6 +129,10 @@ class Player < ApplicationRecord
         exp >= next_level.exp
     end
 
+    def lowhp?
+        (currenthp.to_f/maxhp.to_f) < 0.25
+    end
+
     def heal
         actual_healing = healing_max
         actual_cost = healing_cost
@@ -179,7 +185,12 @@ class Player < ApplicationRecord
         result = result * Setting.skill_dmg_multiplier(self) if is_skill
 
         # check for critical hit chance
-        result *= Setting.player_crit_dmg_multiplier(self) if roll_crit_chance
+        if roll_crit_chance
+            result *= Setting.player_crit_dmg_multiplier(self)
+            @was_crit = true
+        else
+            @was_crit = false
+        end
 
         result.ceil
     end

@@ -15,7 +15,7 @@
       <div class="col-2"></div>
       <div class="col justify-content-center monster-card">
         <span class="badge badge-pill bg-success left_action_badge">1</span>
-        <%= link_to "Restart", login_menus_path, class: "action_btn btn btn-info rounded-pill" %>
+        <%= link_to "Restart", login_menus_path, class: "action_btn btn btn-info rounded-pill", "data-hotkey": '1', id: "restart_button" %>
       </div>
       <div class="col-2"></div>
     </div>
@@ -25,7 +25,7 @@
         <div class="col-2"></div>
         <div class="col justify-content-center monster-card">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Continue", dash_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Continue", dash_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": '1', id: "day_ended_continue_button" %>
         </div>
         <div class="col-2"></div>
       </div>
@@ -49,17 +49,17 @@
         <% unless @fight.monster.is_boss %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Run", run_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Run", run_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": '1', id: "run_fight_button", "data-turbo-method": :post %>
         </div>
         <% end %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">2</span>
-          <%= link_to "Attack", attack_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Attack", attack_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": '2', id: "attack_button", "data-turbo-method": :post %>
         </div>
         <% if @player.skills > 0 %>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">3</span>
-          <%= link_to "Backstab", backstab_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Backstab", backstab_fights_path(fight_id: @fight.id, player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": '3', id: "backstab_button", "data-turbo-method": :post %>
         </div>
         <% end %>
       </div>

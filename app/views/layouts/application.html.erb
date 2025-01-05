@@ -22,6 +22,7 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'src/custom', 'data-turbo-track': 'reload', defer: true, type: "module" %>
   </head>
 
   <body>

@@ -7,14 +7,14 @@ Rails.application.routes.draw do
     collection do
       get :dash
       get :wilderness
-      get :start_game
+      post :start_game
       get :login
       get :healer
-      get :heal
+      post :heal
       get :training
-      get :train
+      post :train
       get :bard
-      get :bard_buff
+      post :bard_buff
     end
   end
 
@@ -23,14 +23,14 @@ Rails.application.routes.draw do
       get :shop
       get :shop_weapons
       get :shop_armor
-      get :buy_weapon
-      get :buy_armor
+      post :buy_weapon
+      post :buy_armor
 
       get :jeweler
-      get :buy_trinket
+      post :buy_trinket
 
       get :alchemist
-      get :buy_potion
+      post :buy_potion
       post :use_potion
       delete :discard_potion
     end
@@ -39,9 +39,9 @@ Rails.application.routes.draw do
   resources :fights do
     collection do
       get :boss
-      get :run
-      get :attack
-      get :backstab
+      post :run
+      post :attack
+      post :backstab
       get :select_prize
       post :prize_selection
     end

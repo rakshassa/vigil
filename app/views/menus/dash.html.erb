@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col justify-content-center monster-card">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Continue", boss_fights_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Continue", boss_fights_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1 %>
         </div>
       </div>
       <% end %>

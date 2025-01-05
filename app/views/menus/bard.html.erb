@@ -21,11 +21,11 @@
       <div id="monster-actions" class="row">
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">1</span>
-          <%= link_to "Listen", bard_buff_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Listen", bard_buff_menus_path(player_id: @player.id), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 1, "data-turbo-method": :post %>
         </div>
         <div class="col">
           <span class="badge badge-pill bg-success left_action_badge">2</span>
-          <%= link_to "Leave", dash_menus_path(player_id: @player.id, message: "You leave without tipping.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill" %>
+          <%= link_to "Leave", dash_menus_path(player_id: @player.id, message: "You leave without tipping.<br><br>What would you like to do?"), class: "action_btn btn btn-info rounded-pill", "data-hotkey": 2 %>
         </div>
       </div>
     </div>

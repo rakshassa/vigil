@@ -4,7 +4,7 @@ class CombatResolver
     end
 
     def attack
-        message = "You miss.  How embarrassing.<br>"
+        message = "You <b class=\"miss\">miss</b>.  How embarrassing.<br>"
         if @fight.player.roll_hit
             message = hit_monster(is_skill: false)
         end
@@ -41,7 +41,7 @@ class CombatResolver
             return @fight.update(message: "You high tail it out of there.<br>", ended: true)
         end
 
-        message = "You turn to flee... your back is exposed!<br>"
+        message = "You turn to flee... <b class=\"crit\">your back is exposed!</b><br>"
 
         # hit player for damage
         message += hit_player
@@ -61,14 +61,18 @@ class CombatResolver
         currenthp = @fight.currenthp
         ended = false
 
-        message = "You hit #{@fight.monster.name} for #{dmg} damage.<br>"
-        message = "With overwhelming skill, you critically strike #{@fight.monster.name} for #{dmg} damage.<br>" if dmg > @fight.player.max_damage
-        message = "You slip behind #{@fight.monster.name} and embed your #{@fight.player.weapon} in his back for #{dmg} damage.<br>" if is_skill
+        message = ""
+        message += "<b class=\"crit\">CRITICAL STRIKE!</b><br>" if @fight.player.was_crit
+        unless is_skill
+            message += "You hit #{@fight.monster.name} for #{dmg} damage.<br>"
+        else
+            message += "You slip behind #{@fight.monster.name} and embed your #{@fight.player.weapon.name} in his back for #{dmg} damage.<br>"
+        end
 
         if currenthp <= dmg
             currenthp = 0
             ended = true
-            message = "You massacre the #{@fight.monster.name} for #{dmg} damage.<br>"
+            # message = "You massacre the #{@fight.monster.name} for #{dmg} damage.<br>"
             message += @fight.monster.death + "<br>"
             message += loot
         else
@@ -105,13 +109,13 @@ class CombatResolver
         currenthp = @fight.player.currenthp
         @fight.player.update(currenthp: currenthp-dmg)
 
-        message = "#{@fight.monster.name} #{@fight.monster.weapon} for #{dmg} damage.<br>"
+        message = "#{@fight.monster.name} #{@fight.monster.weapon} for <b class=\"crit\">#{dmg} damage</b>.<br>"
         message = "#{@fight.monster.name} bounces off your armor.<br>" if dmg <= 0
 
         # check if the player died
         if @fight.player.currenthp <= 0
             @fight.update(ended: true)
-            message += "You die.<br>"
+            message += "<b class=\"crit\">You die.</b><br>"
         end
 
         message

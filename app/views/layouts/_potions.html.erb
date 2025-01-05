@@ -1,7 +1,8 @@
-
+<% hotkey_num = 1 %>
 <% @player.player_potions.owned.unused.find_each do |ppotion| %>
 <span class="potion-span">
-  <%= link_to use_potion_shops_path(player_id: @player.id, potion_id: ppotion.potion.id, fight_id: params[:fight_id]), data: { "turbo-method": :post, "turbo-confirm": "Use this potion?" } do %>
+  <span class="badge badge-pill bg-success top_potion_badge"><%= "Alt+#{hotkey_num}" %></span>
+  <%= link_to use_potion_shops_path(player_id: @player.id, potion_id: ppotion.potion.id, fight_id: params[:fight_id]), data: { "turbo-method": :post, "turbo-confirm": "Use this potion?", hotkey: "Alt+#{hotkey_num}" } do %>
     <i class="potion-icon bi <%= ppotion.potion.icon %>" title=<%= raw("\"#{ppotion.potion.name}: #{ppotion.potion.desc}\"") %>></i>
   <% end %>
 
@@ -9,5 +10,5 @@
       <i class="discard-icon bi bi-trash" title="Discard"></i>
   <% end %>
 </span>
+<% hotkey_num += 1 %>
 <% end %>
-

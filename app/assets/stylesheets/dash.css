@@ -39,6 +39,13 @@
     position: relative;
 }
 
+.top_potion_badge {
+    margin-left: 5px;
+    margin-top: -18px;
+    z-index: 2;
+    position: absolute;
+}
+
 .right_action_badge {
     padding: 0px;
     margin-left: -12px;
@@ -130,4 +137,22 @@ div.glass-pane {
     margin-right: 2px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.crit {
+    color: red;
+}
+
+.miss {
+    color: blue;
+}
+
+.lowhp {
+    color:white;
+    background: red;
+}
+
+.ready-to-level {
+    color: white;
+    background: green;
 }
