@@ -1,7 +1,7 @@
 class Potion < ApplicationRecord
     scope :with_effect, ->(effect_name) {
-        query = "select potions.* from potions, jsonb_to_recordset(potions.effects) as eff(name text) where eff.name='#{effect_name}'"
-        find_by_sql(query)
+        query = "select potions.* from potions, jsonb_to_recordset(potions.effects) as eff(name text) where eff.name='?'"
+        find_by_sql(query, effect_name)
     }
 
     has_many :player_potions, dependent: :destroy
