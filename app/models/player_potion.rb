@@ -7,9 +7,9 @@ class PlayerPotion < ApplicationRecord
     query =
     "select player_potions.* from player_potions \
      INNER JOIN potions ON potions.id = player_potions.potion_id, jsonb_to_recordset(potions.effects) as eff(name text) \
-     where eff.name='?' AND player_potions.used IS TRUE
+     where eff.name=? AND player_potions.used IS TRUE
     "
-    find_by_sql(query, effect_name)
+    find_by_sql([query, effect_name])
   }
 
   belongs_to :potion
