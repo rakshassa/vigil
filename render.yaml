@@ -1,6 +1,6 @@
 databases:
   - name: vigil-postgresql
-    databaseName: vigil-production
+    databaseName: vigil_production
     user: vigil
     plan: free
 

@@ -18,13 +18,18 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  user: vigil
+  username: vigil
   password: vigilpw
   host: localhost
 
 development:
   <<: *default
   database: vigil_development
+
+  # database: vigil_production
+  # password: redacted
+  # host: dpg-ctths79u0jms73bj593g-a.oregon-postgres.render.com
+  # port: 5432
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -86,6 +91,8 @@ production:
     database: vigil_production
     username: vigil
     password: <%= ENV["VIGIL_DATABASE_PASSWORD"] %>
+    host: dpg-ctths79u0jms73bj593g-a.oregon-postgres.render.com
+    port: 5432
   cache:
     <<: *primary_production
     database: vigil_production_cache
