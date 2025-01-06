@@ -46,7 +46,7 @@ class MenusController < ApplicationController
   def dash
     @day_ended = @player.day_ended?
 
-    @message = params[:message]
+    @message = params[:message].to_s
     @message += "<br>" unless @message.blank?
     if @day_ended
       @message += "A dangerous foe approaches."

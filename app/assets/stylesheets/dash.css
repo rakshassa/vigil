@@ -48,9 +48,10 @@
 
 .right_action_badge {
     padding: 0px;
-    margin-left: -12px;
+    margin-left: -25px;
+    margin-top: 3px;
     z-index: 2;
-    position: relative;
+    position: absolute;
 }
 
 .top_shop_badge {
