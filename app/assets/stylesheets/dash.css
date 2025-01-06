@@ -2,8 +2,12 @@
     max-height: 70px;
 }
 
-#footer_row {
+.footer_row {
     min-height: 50px;
+}
+
+.combined_footer_row {
+    margin-right: -23px !important;
 }
 
 .dash_panel {
