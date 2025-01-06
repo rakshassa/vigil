@@ -7,7 +7,7 @@ class MenusController < ApplicationController
   end
 
   def bard_buff
-    redirect_to dash_menus_path(player_id: @player.id, message: "Jaskier is too tired to perform again today.") if @player.used_bard
+    return redirect_to dash_menus_path(player_id: @player.id, message: "Jaskier is too tired to perform again today.") if @player.used_bard
 
     message = @player.bard_buff
     redirect_to dash_menus_path(player_id: @player.id, message: message)

@@ -2,18 +2,11 @@ import 'jquery'
 import 'jquery_ujs'
 import 'jquery-hotkeys'
 
-var store_bindings = function(bound) {
-    sessionStorage.setItem('keybind_handlers', JSON.stringify(bound));
-};
-
 var ready = function() {
-    // alert("url change");
-
     // Unbind every event with the namespace: .hotkeys
     $(document).unbind('.hotkeys');
 
-    var bound = [];
-
+    // find any element marked with a hotkey and bind it under namespace: .hotkeys
     $('[data-hotkey]').each(function() {
         var element = $(this);
         var hotkey = element.data('hotkey').toString();

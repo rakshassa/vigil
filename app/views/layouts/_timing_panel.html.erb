@@ -1,9 +1,11 @@
 <div class="d-flex justify-content-center">
   <span class="text-span">
-    There are <b><%= (Setting.daily_hours-@player.hours).floor %></b> hours of daylight left today.
+    <span class="badge badge-pill bg-success top_timing_badge">Today</span>
+    <b><%= (Setting.daily_hours-@player.hours).floor %></b> hours.
   </span>
 
   <span class="text-span">
-    There are <b><%= (Setting.weekly_days-@player.days).floor %></b> days until the boss arrives.
+    <span class="badge badge-pill bg-success top_timing_badge">Boss</span>
+    There are <b><%= (Setting.weekly_days-@player.days).floor %></b> days.
   </span>
 </div>

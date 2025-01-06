@@ -2,12 +2,9 @@
 
 - non-battle encounters
 - level-up talent selection
-- deploy to heroku
--- https://devcenter.heroku.com/articles/getting-started-with-ruby?singlepage=true
--- https://devcenter.heroku.com/articles/getting-started-with-rails8
--- https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
-    -- sudo npm install -g heroku
-
+- phone screen
+    - attack/run buttons are too wide
+    - move player_status to top?
 
 DEFER
 =========
