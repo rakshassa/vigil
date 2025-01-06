@@ -24,3 +24,7 @@ https://vigil-svo7.onrender.com
 
 DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
 
+postgresql://vigil:redacted@dpg-ctths79u0jms73bj593g-a/vigil_production
+
+postgresql://vigil:redacted@dpg-ctths79u0jms73bj593g-a.oregon-postgres.render.com/vigil_production
+
