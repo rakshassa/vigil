@@ -18,3 +18,9 @@ DEFER
 - NOTICE bar at the top should be styled better
 - Action: scouts
 - full stat sheet (crit, critdmg, hitrate, runrate, etc)
+
+
+https://vigil-svo7.onrender.com
+
+DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+
