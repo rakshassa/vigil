@@ -48,7 +48,11 @@ class MenusController < ApplicationController
 
     @message = params[:message]
     @message += "<br>" unless @message.blank?
-    @message = "#{@message}A dangerous foe approaches." if @day_ended
+    if @day_ended
+      @message += "A dangerous foe approaches."
+      @disable_actions = true
+    end
+
     @message = "Welcome to Vigil.<br><br>What would you like to do?" if @message.blank?
   end
 
