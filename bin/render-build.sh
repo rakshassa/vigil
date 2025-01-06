@@ -3,6 +3,7 @@
 set -o errexit
 
 bundle install
+bin/rails db:environment:set RAILS_ENV=production
 bundle exec rake assets:precompile
 bundle exec rake assets:clean
 

@@ -27,7 +27,7 @@ development:
   database: vigil_development
 
   # database: vigil_production
-  # password: redacted
+  # password: hL0LgmRyZjcLWOGsvKibgz8BcX791xxO
   # host: dpg-ctths79u0jms73bj593g-a.oregon-postgres.render.com
   # port: 5432
 
