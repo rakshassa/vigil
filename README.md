@@ -1,6 +1,6 @@
 # TODO
 
-- non-battle encounters
+- non-battle encounters -> create more
 - level-up talent selection
 - wilderness => choice of 1-3 nodes (fight, elite, non-combat)
 
