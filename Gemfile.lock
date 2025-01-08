@@ -111,6 +111,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    flag_shih_tzu (0.3.23)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -360,6 +361,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
+  flag_shih_tzu
   importmap-rails
   jbuilder
   jquery-hotkeys-rails

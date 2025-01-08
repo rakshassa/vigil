@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       post :backstab
       get :select_prize
       post :prize_selection
+      post :choice
     end
   end
 
