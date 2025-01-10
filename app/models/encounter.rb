@@ -1,6 +1,6 @@
 class Encounter < ApplicationRecord
     include FlagShihTzu # https://github.com/pboling/flag_shih_tzu
-    # add new flags here (up to 64)
+    # add new flags here (up to 32) in free postgres - 64 in paid postgres
     has_flags 1 => :avoided_old_man,
               2 => :killed_old_man,
               :column => "skip_on_flags"
@@ -11,10 +11,10 @@ class Encounter < ApplicationRecord
 
     has_many :fights
 
-    scope :not_skipped, ->(player_flags) { where("(skip_on_flags::bit(64) & ?::bit(64)) = B'0'::int::bit(64)", player_flags) }
-    scope :skipped, ->(player_flags) { where("(skip_on_flags::bit(64) & ?::bit(64)) > B'0'::int::bit(64)", player_flags) }
+    scope :not_skipped, ->(player_flags) { where("(skip_on_flags::bit(32) & ?::bit(32)) = B'0'::int::bit(32)", player_flags) }
+    scope :skipped, ->(player_flags) { where("(skip_on_flags::bit(32) & ?::bit(32)) > B'0'::int::bit(32)", player_flags) }
 
-    scope :has_all_required, ->(player_flags) { where("(flags_required::bit(64) & ?::bit(64)) = flags_required::bit(64)", player_flags) }
+    scope :has_all_required, ->(player_flags) { where("(flags_required::bit(32) & ?::bit(32)) = flags_required::bit(32)", player_flags) }
 
     def get_choice(choice_number)
         return choice_1 if choice_number == 1
