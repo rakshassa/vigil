@@ -24,6 +24,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_191818) do
 
   create_table "encounters", force: :cascade do |t|
     t.string "message", null: false
+    t.integer "flags_required", default: 0, null: false
+    t.integer "skip_on_flags", default: 0, null: false
     t.jsonb "choice_1"
     t.jsonb "choice_2"
     t.jsonb "choice_3"

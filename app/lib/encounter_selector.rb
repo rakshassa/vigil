@@ -27,7 +27,9 @@ class EncounterSelector
     private
 
     def non_monster_encounter(player)
-        encounter = Encounter.order(Arel.sql("RANDOM()")).take
+        encounter = Encounter.not_skipped(player.flags).has_all_required(player.flags).order(Arel.sql("RANDOM()")).take
+        return monster_encounter(player) if encounter.blank?
+
         Fight.create(player_id: player.id, encounter_id: encounter.id, ended: false, message: encounter.message)
     end
 

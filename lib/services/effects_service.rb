@@ -17,14 +17,34 @@ module Services
                 value = currenthp(evalue) if ename == "CurrentHP"
                 value = hours(evalue) if ename == "Hours"
                 value = enable_flag(evalue) if ename == "Flag"
+                value = max_hp(evalue) if ename == "MaxHP"
+                value = full_heal(evalue) if ename == "FullHeal"
 
-                values.append(value)
+                # we store the absolute value to avoid negative numbers in sentances
+                values.append(value.abs)
             end
 
             values
         end
 
         private
+
+        def full_heal(value)
+            @player.update(currenthp: @player.maxhp)
+            0
+        end
+
+        def max_hp(value)
+            value = (@player.maxhp * value).floor
+            net = @player.maxhp + value
+            net = 1 if net < 1
+
+            currenthp = @player.currenthp
+            currenthp = net if currenthp > net
+            @player.update(currenthp: currenthp, maxhp: net)
+
+            value
+        end
 
         def lvl_gold(value)
             next_level_cost = @player.next_level.gold
@@ -81,7 +101,7 @@ module Services
             @player.update(flags: net)
 
             # no value here
-            nil
+            0
         end
     end
 end
