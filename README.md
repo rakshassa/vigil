@@ -1,10 +1,9 @@
 # TODO
 
-- non-battle encounters
+- non-battle encounters -> create more
 - level-up talent selection
-- phone screen
-    - attack/run buttons are too wide
-    - move player_status to top?
+- wilderness => choice of 1-3 nodes (fight, elite, non-combat)
+
 
 DEFER
 =========

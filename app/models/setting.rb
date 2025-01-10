@@ -96,4 +96,8 @@ class Setting < ApplicationRecord
 
         result.floor
     end
+
+    def self.encounter_monster_chance
+        Setting.where(name: "encounter_monster_chance").first_or_create(value: 75).value
+    end
 end

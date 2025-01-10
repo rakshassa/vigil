@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_033639) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_08_191818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,14 +22,27 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_033639) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "encounters", force: :cascade do |t|
+    t.string "message", null: false
+    t.integer "flags_required", default: 0, null: false
+    t.integer "skip_on_flags", default: 0, null: false
+    t.jsonb "choice_1"
+    t.jsonb "choice_2"
+    t.jsonb "choice_3"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fights", force: :cascade do |t|
     t.bigint "player_id", null: false
-    t.bigint "monster_id", null: false
+    t.bigint "monster_id"
     t.boolean "ended", default: false
     t.integer "currenthp", default: 0
     t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "encounter_id"
+    t.index ["encounter_id"], name: "index_fights_on_encounter_id"
     t.index ["monster_id"], name: "index_fights_on_monster_id"
     t.index ["player_id"], name: "index_fights_on_player_id"
   end
@@ -99,6 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_033639) do
     t.boolean "used_bard", default: false
     t.integer "baseskills", default: 1
     t.integer "maxpotions", default: 3
+    t.integer "flags", default: 0, null: false
     t.index ["armor_id"], name: "index_players_on_armor_id"
     t.index ["level_id"], name: "index_players_on_level_id"
     t.index ["weapon_id"], name: "index_players_on_weapon_id"
@@ -141,6 +155,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_033639) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "fights", "encounters"
   add_foreign_key "fights", "monsters"
   add_foreign_key "fights", "players"
   add_foreign_key "player_potions", "players"

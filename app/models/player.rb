@@ -1,6 +1,12 @@
 class Player < ApplicationRecord
     attr_reader :was_crit
 
+    include FlagShihTzu # https://github.com/pboling/flag_shih_tzu
+    # add new flags here (up to 64)
+    has_flags 1 => :avoided_old_man,
+              2 => :killed_old_man,
+              :column => "flags"
+
     belongs_to :weapon, optional: false
     belongs_to :armor, optional: false
     belongs_to :level, optional: false
@@ -282,5 +288,20 @@ class Player < ApplicationRecord
         choices.each do |potion|
             PlayerPotion.create(player_id: id, potion_id: potion.id, bought: false)
         end
+    end
+
+    def process_encounter_results(result)
+        Rails.logger.info "Processing Encounter Result: #{result}"
+
+        # { chance: 70,
+        #   message: "He pays you %s gold for your service.",
+        #   results: [{name: "LvlGold", value: 0.4}]
+        # }
+
+        fmt = result["message"]
+        values = Services::EffectsService.new(self).process_effects(result["results"])
+        values.insert(0, fmt)
+
+        sprintf(*values)
     end
 end

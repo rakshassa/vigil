@@ -1,0 +1,7 @@
+Potion.where(name: "Protein").first_or_create(desc: "Your next attack will critically hit", cost: 1, icon: "bi-egg", effects: [{ name: "AutoCrit", value: 100 }], immediate: false)
+Potion.where(name: "Blind").first_or_create(desc: "Your enemy will miss its next attack.", cost: 1, icon: "bi-eye-slash", effects: [{ name: "EnemyMiss", value: 1.0 }], immediate: false)
+Potion.where(name: "Chronos").first_or_create(desc: "Turn the clock back 3 hours.", cost: 1, icon: "bi-clock", effects: [{ name: "Hours", value: -3 }], immediate: true)
+Potion.where(name: "Recharge").first_or_create(desc: "All of your skill points are refilled.", cost: 1, icon: "bi-clock-history", effects: [{ name: "RefillSkills", value: 100 }], immediate: true)
+Potion.where(name: "Midas").first_or_create(desc: "Increase your gold (10%).", cost: 1, icon: "bi-credit-card", effects: [{ name: "MoreGold", value: 10 }], immediate: true)
+Potion.where(name: "Rest").first_or_create(desc: "Heal all HP.", cost: 2, icon: "bi-cloud-moon", effects: [{ name: "FullHeal", value: 100 }], immediate: true)
+Potion.where(name: "Quench").first_or_create(desc: "The Bard can sing again today.", cost: 2, icon: "bi-droplet", effects: [{ name: "BardSong", value: 100 }], immediate: true)

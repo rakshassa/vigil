@@ -2,6 +2,32 @@ class FightsController < ApplicationController
   before_action :set_fight, except: %w[boss]
   before_action :set_fight_player
 
+  def choice
+    return redirect_to dash_menus_path(player_id: @player.id) if @fight.ended
+
+    Rails.logger.info "Params in Choice: #{params}"
+
+    choice_value = @fight.encounter.get_choice(params[:action_id].to_i)
+    Rails.logger.info "Processing Choice: #{choice_value}"
+    return redirect_to dash_menus_path(player_id: @player.id) if choice_value.nil?
+
+    effects = choice_value["effects"]
+    roll = Rands.rand(1, 100)
+    sum = 0
+
+    effects.each do |effect|
+      sum += effect["chance"]
+      next if roll > sum
+
+      message = @player.process_encounter_results(effect)
+      @fight.update(message: message, ended: true)
+      break
+    end
+
+    Rails.logger.info "Done processing Choice: #{@fight.message}"
+    redirect_to wilderness_menus_path(player_id: @player.id, fight_id: @fight.id)
+  end
+
   def select_prize
     unless @fight.ended && @fight.monster.is_boss && @fight.player.currenthp > 0
       message = "You have not earned a prize, yet."
