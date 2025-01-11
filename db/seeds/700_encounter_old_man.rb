@@ -18,7 +18,7 @@ Encounter.where(
         action: "Rob Him",
         effects: [{ chance: 50,
                     message: "You pilfer %s gold coins and %s jewels.",
-                    results: [{ name: "LvlGold", value: 0.6 }, { name: "Jewels", value: 2 }]
+                    results: [{ name: "LvlGold", value: 0.2 }, { name: "Jewels", value: 2 }]
                   },
                   { chance: 50,
                     message: "He smacks you across the face for %s damage and vanishes. It really hurts!",
@@ -69,7 +69,6 @@ Encounter.where(
                   }]
     }
 )
-
 
 Encounter.where(
     message: "The old man's ghost beckons you."

@@ -3,10 +3,26 @@ class Encounter < ApplicationRecord
     # add new flags here (up to 64)
     has_flags 1 => :avoided_old_man,
               2 => :killed_old_man,
+              3 => :lost_squirrel,
+              4 => :freed_squirrels,
+              5 => :obtained_ring_speed,
+              6 => :grandma_scared,
+              7 => :grandma_happy,
+              8 => :burned_house,
+              9 => :stephen_bucket,
+              10 => :angry_stephen,
               :column => "skip_on_flags"
 
     has_flags 1 => :has_avoided_old_man,
               2 => :has_killed_old_man,
+              3 => :has_lost_squirrel,
+              4 => :has_freed_squirrels,
+              5 => :has_obtained_ring_speed,
+              6 => :has_grandma_scared,
+              7 => :has_grandma_happy,
+              8 => :has_burned_house,
+              9 => :has_stephen_bucket,
+              10 => :has_angry_stephen,
               :column => "flags_required"
 
     has_many :fights

@@ -4,6 +4,8 @@ class Trinket < ApplicationRecord
 
         where.not(id: owned)
     }
+    scope :not_reserved, -> { where(reserved: false) }
+
     has_many :player_trinkets, dependent: :destroy
 
     def on_obtain(player)

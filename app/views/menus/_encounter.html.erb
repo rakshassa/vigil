@@ -1,24 +1,7 @@
 <div class="col justify-content-center monster-card">
   <div id="monster-actions" class="row">
-    <% if @fight.encounter.choice_1.present? %>
-    <div class="col">
-      <span class="badge badge-pill bg-success left_action_badge">1</span>
-      <%= button_to @fight.encounter.choice_1["action"], choice_fights_path, params: {fight_id: @fight.id, player_id: @player.id, action_id: 1}, class: "action_btn btn btn-info rounded-pill", "data-hotkey": '1' %>
-    </div>
-    <% end %>
-
-    <% if @fight.encounter.choice_2.present? %>
-    <div class="col">
-      <span class="badge badge-pill bg-success left_action_badge">2</span>
-      <%= button_to @fight.encounter.choice_2["action"], choice_fights_path, params: {fight_id: @fight.id, player_id: @player.id, action_id: 2}, class: "action_btn btn btn-info rounded-pill", data: { "hotkey": '2' } %>
-    </div>
-    <% end %>
-
-    <% if @fight.encounter.choice_3.present? %>
-    <div class="col">
-      <span class="badge badge-pill bg-success left_action_badge">3</span>
-      <%= button_to @fight.encounter.choice_3["action"], choice_fights_path, params: {fight_id: @fight.id, player_id: @player.id, action_id: 3}, class: "action_btn btn btn-info rounded-pill", "data-hotkey": '3' %>
-    </div>
-    <% end %>
+    <%= choice_link(1) %>
+    <%= choice_link(2) %>
+    <%= choice_link(3) %>
   </div>
 </div>
