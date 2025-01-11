@@ -57,8 +57,12 @@ class Setting < ApplicationRecord
         result.floor
     end
 
-    def self.daily_hours
-        Setting.where(name: "daily_hours").first_or_create(value: 24).value
+    def self.daily_hours(player_id)
+        base = Setting.where(name: "daily_hours").first_or_create(value: 24).value
+        result = base + PlayerTrinket.accumulate(player_id, "daily_hours")
+        result = 0 if result < 0
+
+        result.floor
     end
 
     def self.weekly_days

@@ -11,6 +11,7 @@ module Services
                 evalue = effect["value"]
                 ename = effect["name"]
 
+                value = "No Effect Handler for: #{ename}"
                 value = lvl_gold(evalue) if ename == "LvlGold"
                 value = lvl_exp(evalue) if ename == "LvlExp"
                 value = jewels(evalue) if ename == "Jewels"
@@ -19,9 +20,13 @@ module Services
                 value = enable_flag(evalue) if ename == "Flag"
                 value = max_hp(evalue) if ename == "MaxHP"
                 value = full_heal(evalue) if ename == "FullHeal"
+                value = gain_trinket(evalue) if ename == "Trinket"
+                value = lose_trinket(evalue) if ename == "LoseTrinket"
 
+                Rails.logger.error(value) if value == "No Effect Handler for: #{ename}"
                 # we store the absolute value to avoid negative numbers in sentances
-                values.append(value.abs)
+                value = value.abs if value.is_a?(Integer)
+                values.append(value)
             end
 
             values
@@ -29,7 +34,27 @@ module Services
 
         private
 
-        def full_heal(value)
+        # quantity of random trinkets
+        def lose_trinket(value)
+            records = PlayerTrinket.where(player_id: @player.id, bought: true).order(Arel.sql("RANDOM()")).limit(value)
+            names = records.joins(:trinket).pluck("trinkets.name").join(",")
+            records.destroy_all
+            names
+        end
+
+        def gain_trinket(value)
+            records = Trinket.where(name: value)
+            if records.blank?
+                Rails.logger.error("No trinket named: #{value} in effect handler")
+                return 0
+            end
+
+            created = PlayerTrinket.create(trinket_id: records.first.id, player_id: @player.id, bought: true)
+            Rails.logger.info("Created PlayerTrinket from Effect: #{created}")
+            0
+        end
+
+        def full_heal(_value)
             @player.update(currenthp: @player.maxhp)
             0
         end

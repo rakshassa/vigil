@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <span class="text-span">
     <span class="badge badge-pill bg-success top_timing_badge">Today</span>
-    <b><%= (Setting.daily_hours-@player.hours).floor %></b> hours.
+    <b><%= (Setting.daily_hours(@player.id)-@player.hours).floor %></b> hours.
   </span>
 
   <span class="text-span">

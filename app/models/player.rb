@@ -5,6 +5,14 @@ class Player < ApplicationRecord
     # add new flags here (up to 64)
     has_flags 1 => :avoided_old_man,
               2 => :killed_old_man,
+              3 => :lost_squirrel,
+              4 => :freed_squirrels,
+              5 => :obtained_ring_speed,
+              6 => :grandma_scared,
+              7 => :grandma_happy,
+              8 => :burned_house,
+              9 => :stephen_bucket,
+              10 => :angry_stephen,
               :column => "flags"
 
     belongs_to :weapon, optional: false
@@ -51,7 +59,7 @@ class Player < ApplicationRecord
     end
 
     def day_ended?
-        hours >= Setting.daily_hours
+        hours >= Setting.daily_hours(id)
     end
 
     def reimburse_weapon_amount
@@ -266,7 +274,7 @@ class Player < ApplicationRecord
     end
 
     def add_jewelry_shop_inventory(qty)
-        choices = Trinket.not_owned(id).order(Arel.sql("RANDOM()")).limit(qty)
+        choices = Trinket.not_reserved.not_owned(id).order(Arel.sql("RANDOM()")).limit(qty)
 
         choices.each do |trinket|
             PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
