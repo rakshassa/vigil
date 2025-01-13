@@ -50,7 +50,7 @@ module Services
             end
 
             created = PlayerTrinket.create(trinket_id: records.first.id, player_id: @player.id, bought: true)
-            created.on_obtain(@player)
+            created.trinket.on_obtain(@player)
             0
         end
 
