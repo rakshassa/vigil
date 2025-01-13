@@ -1,6 +1,7 @@
 Encounter.where(
     message: "You see a wooden shack."
 ).first_or_create(
+    short_name: "Shack",
     skip_on_flags: 0,
     flags_required: 0,
     choice_1: {
@@ -49,6 +50,7 @@ Encounter.where(
 Encounter.where(
     message: "A tiny grandmother is picking berries."
 ).first_or_create(
+    short_name: "Grandmother",
     skip_on_flags: Player.flag_mapping["flags"][:grandma_scared],
     flags_required: Player.flag_mapping["flags"][:grandma_happy],
     choice_1: {
@@ -86,6 +88,7 @@ Encounter.where(
 Encounter.where(
     message: "You see seven dwarves covered in ashes."
 ).first_or_create(
+    short_name: "Dwarves",
     skip_on_flags: 0,
     flags_required: Player.flag_mapping["flags"][:burned_house],
     choice_1: {
@@ -123,6 +126,7 @@ Encounter.where(
 Encounter.where(
     message: "You see seven dwarves."
 ).first_or_create(
+    short_name: "Dwarves",
     skip_on_flags: Player.flag_mapping["flags"][:burned_house],
     flags_required: 0,
     choice_1: {
@@ -156,6 +160,7 @@ Encounter.where(
 Encounter.where(
     message: "Stephen leans against a tree."
 ).first_or_create(
+    short_name: "Stephen",
     skip_on_flags: Player.flag_mapping["flags"][:stephen_bucket],
     flags_required: Player.flag_mapping["flags"][:angry_stephen],
     choice_1: {

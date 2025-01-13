@@ -25,7 +25,8 @@ class Encounter < ApplicationRecord
               10 => :has_angry_stephen,
               :column => "flags_required"
 
-    has_many :fights
+    has_many :fights, dependent: :destroy
+    has_many :roads, dependent: :destroy
 
     scope :not_skipped, ->(player_flags) { where("(skip_on_flags::bit(64) & ?::int::bit(64)) = B'0'::int::bit(64)", player_flags) }
     scope :skipped, ->(player_flags) { where("(skip_on_flags::bit(64) & ?::int::bit(64)) > B'0'::int::bit(64)", player_flags) }

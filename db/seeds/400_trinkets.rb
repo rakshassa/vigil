@@ -18,6 +18,7 @@ Trinket.where(name: "Scavenger").first_or_create(desc: "Find gems more often (15
 Trinket.where(name: "Puncture").first_or_create(desc: "You critically strike more often (10%).", cost: 2, icon: "bi-scissors", effects: [{ name: "CritChance", value: 10 }])
 Trinket.where(name: "Twist").first_or_create(desc: "Inflict more damage when critically striking (50%).", cost: 2, icon: "bi-lightning", effects: [{ name: "CritDmg", value: 0.5 }])
 Trinket.where(name: "Tactics").first_or_create(desc: "Skills do more damage, but critical hits do less.", cost: 1, icon: "bi-yin-yang", effects: [{ name: "CritDmg", value: -0.5 }, { name: "SkillDmg", value: 0.5 }])
+Trinket.where(name: "Spyglass").first_or_create(desc: "You can see farther in the wilderness.", cost: 2, icon: "bi-eyeglasses", effects: [{ name: "Roads", value: 1 }])
 
 # Reserved Trinkets
 Trinket.where(name: "Squirrel").first_or_create(desc: "The jewelers favorite animal.", cost: 1, icon: "bi-bug", effects: [{ name: "JewelryMax", value: 1 }], reserved: true)

@@ -1,6 +1,7 @@
 Encounter.where(
     message: "An old man asks you to help him get back to town."
 ).first_or_create(
+    short_name: "Old Man",
     skip_on_flags: Player.flag_mapping["flags"][:avoided_old_man],
     flags_required: 0,
     choice_1: {
@@ -37,6 +38,7 @@ Encounter.where(
 Encounter.where(
     message: "The man you abandoned lies bleeding in the dirt."
 ).first_or_create(
+    short_name: "Old Man",
     skip_on_flags: Player.flag_mapping["flags"][:killed_old_man],
     flags_required: Player.flag_mapping["flags"][:avoided_old_man],
     choice_1: {
@@ -73,6 +75,7 @@ Encounter.where(
 Encounter.where(
     message: "The old man's ghost beckons you."
 ).first_or_create(
+    short_name: "Ghost",
     skip_on_flags: 0,
     flags_required: Player.flag_mapping["flags"][:killed_old_man],
     choice_1: {

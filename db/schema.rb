@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_10_232729) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_13_025122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_232729) do
     t.jsonb "choice_3"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "short_name", default: "None", null: false
   end
 
   create_table "fights", force: :cascade do |t|
@@ -113,6 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_232729) do
     t.integer "baseskills", default: 1
     t.integer "maxpotions", default: 3
     t.integer "flags", default: 0, null: false
+    t.integer "max_roads", default: 2, null: false
     t.index ["armor_id"], name: "index_players_on_armor_id"
     t.index ["level_id"], name: "index_players_on_level_id"
     t.index ["weapon_id"], name: "index_players_on_weapon_id"
@@ -127,6 +129,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_232729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "immediate", default: true, null: false
+  end
+
+  create_table "roads", force: :cascade do |t|
+    t.bigint "monster_id"
+    t.bigint "encounter_id"
+    t.bigint "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["encounter_id"], name: "index_roads_on_encounter_id"
+    t.index ["monster_id"], name: "index_roads_on_monster_id"
+    t.index ["player_id"], name: "index_roads_on_player_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -166,4 +179,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_232729) do
   add_foreign_key "players", "armors"
   add_foreign_key "players", "levels"
   add_foreign_key "players", "weapons"
+  add_foreign_key "roads", "encounters"
+  add_foreign_key "roads", "monsters"
+  add_foreign_key "roads", "players"
 end

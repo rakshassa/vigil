@@ -6,10 +6,16 @@ class EncounterSelector
         chance < success_percentage
     end
 
+    # Create player.max_roads Road records.
+    # These are a mix between monsters and encounters based on Setting.encounter_monster_chance
     def select(player)
-        return monster_encounter(player) if roll_chance(Setting.encounter_monster_chance)
-
-        non_monster_encounter(player)
+        player.max_roads.times do
+            if roll_chance(Setting.encounter_monster_chance)
+                monster_encounter(player)
+            else
+                non_monster_encounter(player)
+            end
+        end
     end
 
     def boss_fight(player)
@@ -30,7 +36,7 @@ class EncounterSelector
         encounter = Encounter.not_skipped(player.flags).has_all_required(player.flags).order(Arel.sql("RANDOM()")).take
         return monster_encounter(player) if encounter.blank?
 
-        Fight.create(player_id: player.id, encounter_id: encounter.id, ended: false, message: encounter.message)
+        Road.create(player_id: player.id, encounter_id: encounter.id)
     end
 
     def monster_encounter(player)
@@ -40,9 +46,6 @@ class EncounterSelector
 
         # select a random record
         monster = records.order(Arel.sql("RANDOM()")).take
-
-        # store the fight
-        start_msg = "You search around the wilderness for a way to become stronger."
-        Fight.create(player_id: player.id, monster_id: monster.id, ended: false, currenthp: monster.hp, message: start_msg)
+        Road.create(player_id: player.id, monster_id: monster.id)
     end
 end
