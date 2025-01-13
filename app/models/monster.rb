@@ -1,5 +1,6 @@
 class Monster < ApplicationRecord
     has_many :fights, dependent: :destroy
+    has_many :roads, dependent: :destroy
 
     def roll_gold
         roll_variance(gold, Setting.gold_variance)

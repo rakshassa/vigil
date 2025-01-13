@@ -1,6 +1,7 @@
 Encounter.where(
     message: "You find a young lady with a wagon full of caged squirrels."
 ).first_or_create(
+    short_name: "Squirrel Vendor",
     skip_on_flags: Player.flag_mapping["flags"][:freed_squirrels],
     flags_required: 0,
     choice_1: {
@@ -38,6 +39,7 @@ Encounter.where(
 Encounter.where(
     message: "A squirrel brings a ring to you."
 ).first_or_create(
+    short_name: "Squirrel",
     skip_on_flags: Player.flag_mapping["flags"][:obtained_ring_speed],
     flags_required: Player.flag_mapping["flags"][:lost_squirrel],
     choice_1: {
@@ -59,6 +61,7 @@ Encounter.where(
 Encounter.where(
     message: "You find a squirrel horde of nuts, gold, and jewels."
 ).first_or_create(
+    short_name: "Squirrel Horde",
     skip_on_flags: 0,
     flags_required: Player.flag_mapping["flags"][:freed_squirrels],
     choice_1: {

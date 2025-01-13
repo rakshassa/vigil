@@ -1,0 +1,25 @@
+<% content_for :content_panel do %>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="d-flex justify-content-center">
+      <span class="text-span">
+        <%= raw("There are a few roads leading forward.  Where do you want to go?") %>
+      </span>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col justify-content-center monster-card">
+      <div id="monster-actions" class="row">
+        <% @roads.each.with_index(1) do |record, counter| %>
+          <%= road_link(record, counter) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+<% end %>
+
+<%= render "layouts/mainframe" %>

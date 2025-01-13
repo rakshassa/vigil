@@ -18,6 +18,7 @@ class Trinket < ApplicationRecord
             player.update(baseatk: player.baseatk + evalue) if ename == "Attack"
             player.update(baseskills: player.baseskills + evalue, skills: player.skills + evalue) if ename == "MaxSkills"
             player.add_jewelry_shop_inventory(evalue) if ename == "JewelryMax"
+            player.update(max_roads: player.max_raods + evalue) if ename == "Roads"
         end
     end
 
@@ -29,6 +30,7 @@ class Trinket < ApplicationRecord
             player.update(basedef: player.basedef - evalue) if ename == "Defense"
             player.update(baseatk: player.baseatk - evalue) if ename == "Attack"
             player.update(baseskills: player.baseskills - evalue, skills: [player.skills, player.baseskills - evalue].min) if ename == "MaxSkills"
+            player.update(max_roads: player.max_raods - evalue) if ename == "Roads"
         end
     end
 end

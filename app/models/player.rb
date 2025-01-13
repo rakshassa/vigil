@@ -22,6 +22,7 @@ class Player < ApplicationRecord
     has_many :fights, dependent: :destroy
     has_many :player_trinkets, dependent: :destroy
     has_many :player_potions, dependent: :destroy
+    has_many :roads, dependent: :destroy
 
     def new_day
         update(days: days + 1, hours: 0, used_bard: false, skills: baseskills, currenthp: maxhp)
