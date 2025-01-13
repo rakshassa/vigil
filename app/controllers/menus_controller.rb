@@ -59,6 +59,7 @@ class MenusController < ApplicationController
   def road
     # display a few action choices
     @disable_actions = true
+    @player.increment_hours
     EncounterSelector.new.select(@player) unless @player.roads.exists?
     @roads = Road.where(player_id: @player.id)
   end

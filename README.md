@@ -1,16 +1,17 @@
 # TODO
 
 - lock gems to current version to avoid auto-updates
-- wilderness => choice of 1-3 nodes (fight, elite, non-combat)
-    - roll 3 fights (combat and/or non-combat mix) - @disable_actions = true
-    - show 3 fights by short-name (goblin, hut, old man)
-        - player selects one
-        - that one needs to be resolved
+- rspec tests
+
 
 DEFER
 =========
 - login: if web app, need authentication to seperate state between users
-- start-game screen (select character, challenges, modifiers)
+- start-game screen
+    - class
+    - challenges
+    - modifiers
+
 - track rounds in a single combat to allow trinkets/abilities to trigger on specific rounds
 - Action: scouts - info about incoming boss
 - full stat sheet (crit, critdmg, hitrate, runrate, etc)
