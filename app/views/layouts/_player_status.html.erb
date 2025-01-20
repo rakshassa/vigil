@@ -11,12 +11,12 @@
     </span>
 
     <span class="text-span status-span">
-      <i class="bi bi-fire" title="Total Attack"></i>
+      <i class="bi bi-fire" title="<%= "Base Attack: #{@player.baseatk}\nWeapon Damage: #{@player.weapon.mindmg}-#{@player.weapon.maxdmg}\nTotal Attack: #{@player.min_damage}-#{@player.max_damage}" %>"></i>
       <%= "#{@player.min_damage}-#{@player.max_damage}" %>
     </span>
 
     <span class="text-span status-span">
-      <i class="bi bi-shield-plus" title="Total Defense"></i>
+      <i class="bi bi-shield-plus" title="<%= "Base Defense: #{@player.basedef}\nArmor Defense: #{@player.armor.defense}\nTotal Defense: #{@player.effective_defense}\nDefense is subtracted from damage taken." %>"></i>
       <%= "#{@player.effective_defense}" %>
     </span>
   </div>
@@ -37,12 +37,12 @@
       <%= "#{@player.exp}/#{@player.next_level.exp}" %>
     </span>
 
-    <span class="text-span status-span">
+    <span class="text-span status-span" title="<%= "Weapon Damage: #{@player.weapon.mindmg}-#{@player.weapon.maxdmg}" %>">
       <span class="badge badge-pill bg-success top_label_badge">Weapon</span>
       <%= "#{@player.weapon.name}" %>
     </span>
 
-    <span class="text-span status-span">
+    <span class="text-span status-span" title="<%= "Armor Defense: #{@player.armor.defense}\nDefense is subtracted from damage taken." %>">
       <span class="badge badge-pill bg-success top_label_badge">Armor</span>
       <%= "#{@player.armor.name}" %>
     </span>
