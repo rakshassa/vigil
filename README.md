@@ -2,6 +2,24 @@
 
 - lock gems to current version to avoid auto-updates
 - rspec tests
+- monsters and bosses through level 15
+- weapons and armor through level 15
+- player level_ups through level 15
+- weekly bosses
+    - switch between big_hp/low_atk and big_atk, low_hp
+    - list of attributes
+        - canine: squirrel reduces hit chance
+        - feline: hamster reduces hit chance
+        - has_mesmerize = 25% chance each round to be stunned
+        - immune to skill attacks (backstab)
+        - destroys trinkets (instead of doing dmg?)
+        - add more attributes/effects for bosses
+- scouting the weekly boss
+    - cost in hours: days_until_boss_arrives
+    - discovers boss type (atk/def) and/or an attribute
+        - results should display all known data and ??? for unknown data
+        - don't let user scout when all data is already known
+
 
 
 DEFER
@@ -18,8 +36,7 @@ DEFER
 - new class: Bard - seduces anything as skill with percent chances of failures
 - achievements (need users to attach to these persisted achievements)
 - level-up talent selection
-- level 5-10 monsters and bosses
-
+- trinket upgrades
 
 https://vigil-svo7.onrender.com
 

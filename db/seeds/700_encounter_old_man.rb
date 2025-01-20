@@ -8,7 +8,7 @@ Encounter.where(
         action: "Help Him",
         effects: [{ chance: 70,
                     message: "He pays you %s gold for your service.",
-                    results: [{ name: "LvlGold", value: 0.4 }]
+                    results: [{ name: "LvlGold", value: 0.2 }]
                   },
                   { chance: 30,
                     message: "He explains his combat style as you walk. You gain %s exp.",

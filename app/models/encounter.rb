@@ -11,6 +11,8 @@ class Encounter < ApplicationRecord
               8 => :burned_house,
               9 => :stephen_bucket,
               10 => :angry_stephen,
+              11 => :squirrel,
+              12 => :hamster,
               :column => "skip_on_flags"
 
     has_flags 1 => :has_avoided_old_man,
@@ -23,6 +25,8 @@ class Encounter < ApplicationRecord
               8 => :has_burned_house,
               9 => :has_stephen_bucket,
               10 => :has_angry_stephen,
+              11 => :has_squirrel,
+              12 => :has_hamster,
               :column => "flags_required"
 
     has_many :fights, dependent: :destroy

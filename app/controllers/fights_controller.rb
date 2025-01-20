@@ -34,11 +34,14 @@ class FightsController < ApplicationController
       return redirect_to dash_menus_path(player_id: @player.id, message: message)
     end
 
-    # give prize selections
-    @player.player_trinkets.where(bought: false).destroy_all
-
+    # how many prizes?
     max = Setting.boss_prizes(@player.id)
+
+    # give prize selections as PlayerTrinket records (shop will repopulate after prize selection since day ends)
+    @player.player_trinkets.where(bought: false).destroy_all
     @player.add_jewelry_shop_inventory(max)
+
+    # force selection before moving on
     @disable_actions = true
   end
 

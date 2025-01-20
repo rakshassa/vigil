@@ -21,6 +21,8 @@ Trinket.where(name: "Tactics").first_or_create(desc: "Skills do more damage, but
 Trinket.where(name: "Spyglass").first_or_create(desc: "You can see farther in the wilderness.", cost: 2, icon: "bi-eyeglasses", effects: [{ name: "Roads", value: 1 }])
 
 # Reserved Trinkets
-Trinket.where(name: "Squirrel").first_or_create(desc: "The jewelers favorite animal.", cost: 1, icon: "bi-bug", effects: [{ name: "JewelryMax", value: 1 }], reserved: true)
+Trinket.where(name: "Squirrel").first_or_create(desc: "The jeweler's favorite animal.  He will sell you an additional item each day.  Canine bosses will be distracted and miss more often.", cost: 1, icon: "bi-bug", effects: [{ name: "JewelryMax", value: 1 }], reserved: true)
 Trinket.where(name: "Ring of Speed").first_or_create(desc: "Your days are 2 hours longer.", cost: 5, icon: "bi-speedometer", effects: [{ name: "daily_hours", value: 2 }], reserved: true)
 Trinket.where(name: "Bucket of Might").first_or_create(desc: "You gain 3 strength and 3 defense.", cost: 5, icon: "bi-bucket", effects: [{ name: "Attack", value: 3 }, { name: "Defense", value: 3 }], reserved: true)
+Trinket.where(name: "Hamster").first_or_create(desc: "The alchemist's favorite animal.  He will sell you an additional item each day.  Feline bosses will be distracted and miss more often", cost: 1, icon: "bi-emoji-smile-upside-down", effects: [{ name: "AlchemistMax", value: 1 }], reserved: true)
+Trinket.where(name: "Pocket Knife").first_or_create(desc: "Jerry's whittling knife. You gain 3 attack", cost: 1, icon: "bi-pen", effects: [{ name: "Attack", value: 3 }], reserved: true)

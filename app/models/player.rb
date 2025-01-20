@@ -13,6 +13,8 @@ class Player < ApplicationRecord
               8 => :burned_house,
               9 => :stephen_bucket,
               10 => :angry_stephen,
+              11 => :squirrel,
+              12 => :hamster,
               :column => "flags"
 
     belongs_to :weapon, optional: false
@@ -129,15 +131,21 @@ class Player < ApplicationRecord
     # levels up the player - includes more HP, atk, def, and costs gold
     # returns message
     def level_up
+        msg = ""
         target = next_level
         new_gold = gold - target.gold
         new_hp = maxhp + target.hp
         new_atk = baseatk + target.atk
         new_def = basedef + target.def
 
+        if target.id.odd?
+            update(skills: skills + 1, baseskills: baseskills + 1)
+            msg += "  You gain a skill point."
+        end
+
         update(gold: new_gold, maxhp: new_hp, currenthp: new_hp, baseatk: new_atk, basedef: new_def, level_id: target.id)
         increment_hours
-        "You pay him #{target.gold} gold to train you.<br><br>You gain #{target.hp} HP, #{target.atk} Attack, and #{target.def} Defense."
+        "You pay him #{target.gold} gold to train you.<br><br>You gain #{target.hp} HP, #{target.atk} Attack, and #{target.def} Defense." + msg
     end
 
     def can_level?
@@ -275,10 +283,18 @@ class Player < ApplicationRecord
     end
 
     def add_jewelry_shop_inventory(qty)
-        choices = Trinket.not_reserved.not_owned(id).order(Arel.sql("RANDOM()")).limit(qty)
+        choices = Trinket.not_reserved.not_owned(id).not_for_sale(id).order(Arel.sql("RANDOM()")).limit(qty)
 
         choices.each do |trinket|
             PlayerTrinket.create(player_id: id, trinket_id: trinket.id, bought: false)
+        end
+    end
+
+    def add_alchemist_shop_inventory(qty)
+        choices = Potion.order(Arel.sql("RANDOM()")).limit(qty)
+
+        choices.each do |potion|
+            PlayerPotion.create(player_id: id, potion_id: potion.id, bought: false)
         end
     end
 
