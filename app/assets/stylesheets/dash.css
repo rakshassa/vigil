@@ -36,6 +36,13 @@
     min-width: 100px;
 }
 
+.road_type_badge {
+    margin-left: 40px;
+    margin-top: 4px;
+    z-index: 2;
+    position: absolute;
+}
+
 .left_action_badge {
     margin-left: 5px;
     margin-top: 4px;

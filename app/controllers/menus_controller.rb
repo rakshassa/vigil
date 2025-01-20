@@ -56,6 +56,37 @@ class MenusController < ApplicationController
     @message = "Welcome to Vigil.<br><br>What would you like to do?" if @message.blank?
   end
 
+  def road
+    # display a few action choices
+    @disable_actions = true
+    @player.increment_hours
+    EncounterSelector.new.select(@player) unless @player.roads.exists?
+    @roads = Road.where(player_id: @player.id)
+  end
+
+  def select_road
+    # find the selected road record
+    road_id = params[:road_id]&.to_i
+    road = Road.where(id: road_id, player_id: @player.id).first
+    raise ActionController::BadRequest.new(), "Invalid Road Selection." if road.nil?
+
+    fight = nil
+    if road.monster_id.nil?
+      encounter = road.encounter
+      fight = Fight.create(player_id: @player.id, encounter_id: encounter.id, ended: false, message: encounter.message)
+    else
+      monster = road.monster
+      start_msg = "The #{monster.name} is hostile."
+      fight = Fight.create(player_id: @player.id, monster_id: monster.id, ended: false, currenthp: monster.hp, message: start_msg)
+    end
+
+    # clear road choices
+    @player.roads.destroy_all
+
+    # start the fight/encounter
+    redirect_to wilderness_menus_path(player_id: @player.id, fight_id: fight.id)
+  end
+
   def wilderness
     Rails.logger.info "Params in wilderness: #{params}"
     records = Fight.where(player_id: @player.id, ended: false)
@@ -70,10 +101,12 @@ class MenusController < ApplicationController
       @fight = Fight.find(fight_id)
     else
       # start a new fight
-      @fight = EncounterSelector.new.select(@player)
-      @player.increment_hours # new encounter takes an hour
-      Rails.logger.info "Created Fight: #{@fight.id}"
+      # @fight = EncounterSelector.new.select(@player)
+      # @player.increment_hours # new encounter takes an hour
+      # Rails.logger.info "Created Fight: #{@fight.id}"
+      raise ActionController::BadRequest.new(), "Wilderness has no fight."
     end
+
     @day_ended = @player.day_ended?
     @disable_actions = @player.is_dead? || !@fight.ended || @day_ended
 

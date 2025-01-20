@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       post :train
       get :bard
       post :bard_buff
+      get :road
+      post :select_road
     end
   end
 

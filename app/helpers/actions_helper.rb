@@ -34,3 +34,23 @@ module ActionsHelper
     false
   end
 end
+
+def road_link(record, counter)
+  # TODO: view should badge monsters vs encounters with crossed-swords vs question-mark
+  road_name = record.monster_id.nil? ? record.encounter.short_name : record.monster.name
+
+  # this is where we add the contents to result so they can be accumulated
+  content_tag(:div, class: "col") do
+    body = tag.span(counter, class: "badge badge-pill bg-success left_action_badge")
+    if record.encounter_id.nil?
+      body += tag.span(class: "badge badge-pill bg-danger road_type_badge") do
+        content_tag(:i, "", class: "bi bi-crosshair")
+      end
+    else
+      body += tag.span(class: "badge badge-pill bg-warning road_type_badge") do
+        content_tag(:i, "", class: "bi bi-question")
+      end
+    end
+    body += button_to(road_name, select_road_menus_path, params: { road_id: record.id, player_id: @player.id }, :class => "action_btn btn btn-info rounded-pill", "data-hotkey" => counter)
+  end
+end
