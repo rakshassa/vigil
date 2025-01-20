@@ -21,14 +21,14 @@ Encounter.where(
         cost: { gold: 0, jewels: 1 },
         effects: [{ chance: 35,
                     message: "Jerry digs in his pockets and sells you a %s.",
-                    results: [{ name: "Jewels", value: -1 }, { name: "Trinket", value: "Random" }]
+                    results: [{ name: "Trinket", value: "Random" }, { name: "Jewels", value: -1 }]
                   },
                   { chance: 25,
                     message: "Jerry hands you his whittling knife and smiles his toothless grin.",
                     results: [{ name: "Jewels", value: -1 }, { name: "Trinket", value: "Pocket Knife" }]
                   },
                   { chance: 40,
-                    message: "Jerry tells you a story and then wanders off.  At least he didn't take your money.",
+                    message: "Jerry tells you a story and then wanders off.  At least he didn't take your money.  You gain %s exp.",
                     results: [{ name: "LvlExp", value: 0.05 }]
                   }]
     },
@@ -64,7 +64,7 @@ Encounter.where(
         cost: { gold: 0, jewels: 1 },
         effects: [{ chance: 25,
                     message: "Jerry digs in his pockets and sells you a %s.",
-                    results: [{ name: "Jewels", value: -1 }, { name: "Trinket", value: "Random" }]
+                    results: [{ name: "Trinket", value: "Random" }, { name: "Jewels", value: -1 }]
                   },
                   { chance: 25,
                     message: "Jerry hands you his whittling knife and smiles his toothless grin.",

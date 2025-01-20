@@ -43,10 +43,10 @@ module Services
         end
 
         def random_trinket
-            trinket = Trinket.not_reserved.not_owned(id).not_for_sale(@player.id).order(Arel.sql("RANDOM()")).first
+            trinket = Trinket.not_reserved.not_owned(@player.id).not_for_sale(@player.id).order(Arel.sql("RANDOM()")).first
             created = PlayerTrinket.create(trinket_id: trinket.id, player_id: @player.id, bought: true)
             created.trinket.on_obtain(@player)
-            0
+            created.trinket.name
         end
 
         def gain_trinket(value)
