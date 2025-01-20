@@ -1,10 +1,13 @@
 class Trinket < ApplicationRecord
     scope :not_owned, ->(player_id) {
         owned = PlayerTrinket.where(player_id: player_id, bought: true).select(:trinket_id)
-
         where.not(id: owned)
     }
     scope :not_reserved, -> { where(reserved: false) }
+    scope :not_for_sale, ->(player_id) {
+        owned = PlayerTrinket.where(player_id: player_id, bought: false).select(:trinket_id)
+        where.not(id: owned)
+    }
 
     has_many :player_trinkets, dependent: :destroy
 
@@ -18,7 +21,8 @@ class Trinket < ApplicationRecord
             player.update(baseatk: player.baseatk + evalue) if ename == "Attack"
             player.update(baseskills: player.baseskills + evalue, skills: player.skills + evalue) if ename == "MaxSkills"
             player.add_jewelry_shop_inventory(evalue) if ename == "JewelryMax"
-            player.update(max_roads: player.max_raods + evalue) if ename == "Roads"
+            player.add_alchemist_shop_inventory(evalue) if ename == "AlchemistMax"
+            player.update(max_roads: player.max_roads + evalue) if ename == "Roads"
         end
     end
 
@@ -30,7 +34,7 @@ class Trinket < ApplicationRecord
             player.update(basedef: player.basedef - evalue) if ename == "Defense"
             player.update(baseatk: player.baseatk - evalue) if ename == "Attack"
             player.update(baseskills: player.baseskills - evalue, skills: [player.skills, player.baseskills - evalue].min) if ename == "MaxSkills"
-            player.update(max_roads: player.max_raods - evalue) if ename == "Roads"
+            player.update(max_roads: player.max_roads - evalue) if ename == "Roads"
         end
     end
 end

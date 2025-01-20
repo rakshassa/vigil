@@ -42,7 +42,16 @@ module Services
             names
         end
 
+        def random_trinket
+            trinket = Trinket.not_reserved.not_owned(id).not_for_sale(@player.id).order(Arel.sql("RANDOM()")).first
+            created = PlayerTrinket.create(trinket_id: trinket.id, player_id: @player.id, bought: true)
+            created.trinket.on_obtain(@player)
+            0
+        end
+
         def gain_trinket(value)
+            return random_trinket if value == "Random"
+
             records = Trinket.where(name: value)
             if records.blank?
                 Rails.logger.error("No trinket named: #{value} in effect handler")
