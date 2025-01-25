@@ -44,11 +44,11 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "jquery-rails" # https://github.com/rails/jquery-rails/issues/289
-gem "jquery-hotkeys-rails"
+gem "jquery-rails", "4.6.0" # https://github.com/rails/jquery-rails/issues/289
+gem "jquery-hotkeys-rails", "0.7.9.1"
 
 # tracks flags in a model's integer column
-gem "flag_shih_tzu"
+gem "flag_shih_tzu", "0.3.23"
 
 gem "stringio", "3.1.2"
 
