@@ -1,6 +1,5 @@
 # TODO
 
-- lock gems to current version to avoid auto-updates
 - rspec tests
 - monsters and bosses through level 15
 - weapons and armor through level 15
