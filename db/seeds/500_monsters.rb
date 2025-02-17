@@ -1,3 +1,4 @@
+# level 1
 Monster.where(name: "Crazed Midget", level: 1, strength: 4, exp: 2, hp: 5, gold: 6, weapon: "nails you with a Nut Punch", death: "He crumples to the ground.  ").first_or_create
 Monster.where(name: "Honey Badger", level: 1, strength: 3, exp: 1, hp: 4, gold: 17, weapon: "scratches at you with his Pointy Toes", death: "It screeches to a halt.  ").first_or_create
 Monster.where(name: "Large Mosquito", level: 1, strength: 4, exp: 3, hp: 6, gold: 12, weapon: "drinks blood from your veins", death: "It drifts to the ground.  ").first_or_create
@@ -9,6 +10,7 @@ Monster.where(is_boss: true, name: "Hungry Hippo", level: 1, strength: 10, exp: 
 Monster.where(is_boss: true, name: "Ravenous Wildebeast", level: 1, strength: 13, exp: 15, hp: 12, gold: 40, weapon: "impales you with his horns", death: "It bleeds out.").first_or_create
 Monster.where(is_boss: true, name: "Mudman", level: 1, strength: 11, exp: 15, hp: 35, gold: 40, weapon: "slaps you across the face", death: "It disolves into the ground.").first_or_create
 
+# level 2
 Monster.where(name: "Billy Goat", level: 2, strength: 6, exp: 13, hp: 12, gold: 20, weapon: "headbutts you", death: "It Quivers until lifeless.  ").first_or_create
 Monster.where(name: "Goblin Warrior", level: 2, strength: 7, exp: 15, hp: 19, gold: 32, weapon: "sticks you with a pointy branch", death: "He falls on his face.  ").first_or_create
 Monster.where(name: "Animated Spear", level: 2, strength: 14, exp: 17, hp: 15, gold: 55, weapon: "stabs you in the thigh", death: "It falls to the floor.  ").first_or_create
@@ -20,6 +22,7 @@ Monster.where(is_boss: true, name: "Shambling Zombie", level: 2, strength: 20, e
 Monster.where(is_boss: true, name: "White Ape", level: 2, strength: 18, exp: 40, hp: 50, gold: 100, weapon: "smashes you with his fists", death: "It howls with its last breath.").first_or_create
 Monster.where(is_boss: true, name: "Viper", level: 2, strength: 22, exp: 42, hp: 26, gold: 90, weapon: "sinks his fangs deep into your leg", death: "It lays still.").first_or_create
 
+# level 3
 Monster.where(name: "Tiny Dancer", level: 3, strength: 18, exp: 20, hp: 22, gold: 46, weapon: "headbutts you", death: "It Quivers until lifeless.  ").first_or_create
 Monster.where(name: "Whirling Dervish", level: 3, strength: 17, exp: 25, hp: 29, gold: 32, weapon: "sticks you with a pointy branch", death: "He falls on his face.  ").first_or_create
 Monster.where(name: "Swarm of Mites", level: 3, strength: 16, exp: 27, hp: 25, gold: 41, weapon: "stabs you in the thigh", death: "It falls to the floor.  ").first_or_create
@@ -31,6 +34,7 @@ Monster.where(is_boss: true, name: "JT the Airman", level: 3, strength: 30, exp:
 Monster.where(is_boss: true, name: "Very Large Bat", level: 3, strength: 25, exp: 70, hp: 80, gold: 120, weapon: "rips at your eyes", death: "It skids across the ground.").first_or_create
 Monster.where(is_boss: true, name: "Angry Clown", level: 3, strength: 35, exp: 82, hp: 56, gold: 140, weapon: "tells a really bad joke", death: "Its rubber nose bounces away.").first_or_create
 
+# level 4
 Monster.where(name: "Rhino", level: 4, strength: 25, exp: 55, hp: 42, gold: 66, weapon: "headbutts you", death: "It slides into a tree.  ").first_or_create
 Monster.where(name: "Dust Storm", level: 4, strength: 28, exp: 68, hp: 45, gold: 72, weapon: "grinds your flesh", death: "It slowly stops spinning.  ").first_or_create
 Monster.where(name: "Purple Worm", level: 4, strength: 34, exp: 70, hp: 75, gold: 41, weapon: "bites deep into your leg", death: "It flops down, lifeless.  ").first_or_create
@@ -41,3 +45,27 @@ Monster.where(name: "Gelatinous Cube", level: 4, strength: 41, exp: 85, hp: 63, 
 Monster.where(is_boss: true, name: "Esteban", level: 4, strength: 45, exp: 155, hp: 102, gold: 230, weapon: "groans at you in disappointment", death: "He smiles as he collapses.").first_or_create
 Monster.where(is_boss: true, name: "Small Dragon", level: 4, strength: 40, exp: 170, hp: 120, gold: 220, weapon: "breaths acid at you", death: "It chokes on its own blood.").first_or_create
 Monster.where(is_boss: true, name: "Sock Puppet", level: 4, strength: 50, exp: 182, hp: 86, gold: 240, weapon: "hits you with his crusty toes", death: "It snaps in two.").first_or_create
+
+# level 5
+Monster.where(level: 5, strength: 35, exp: 100, hp: 81, gold: 166, name: "Muck", weapon: "headbutts you", death: "It slides into a tree.  ").first_or_create
+Monster.where(level: 5, strength: 44, exp: 170, hp: 105, gold: 141, name: "Scaled Lizard", weapon: "bites deep into your leg", death: "It flops down, lifeless.  ").first_or_create
+Monster.where(level: 5, strength: 46, exp: 153, hp: 110, gold: 112, name: "Mikey", weapon: "slaps you across the face", death: "His spirit storms off.  ").first_or_create
+Monster.where(level: 5, strength: 52, exp: 168, hp: 70, gold: 172, name: "Minotaur", weapon: "grinds your flesh", death: "It slowly stops spinning.  ").first_or_create
+Monster.where(level: 5, strength: 60, exp: 180, hp: 88, gold: 175, name: "Golden Eagle", weapon: "pecks at yoru face", death: "It no longer caws into the night.  ").first_or_create
+Monster.where(level: 5, strength: 68, exp: 185, hp: 83, gold: 221, name: "Rakshassa", weapon: "melts your skin", death: "It melts into the dirt.  ").first_or_create
+
+Monster.where(level: 5, strength: 70, exp: 255, hp: 122, gold: 430, is_boss: true, name: "Chimera", weapon: "groans at you in disappointment", death: "He smiles as he collapses.").first_or_create
+Monster.where(level: 5, strength: 55, exp: 270, hp: 180, gold: 420, is_boss: true, name: "Blue Dragon", weapon: "breaths acid at you", death: "It chokes on its own blood.").first_or_create
+Monster.where(level: 5, strength: 80, exp: 282, hp: 96, gold: 440, is_boss: true, name: "Nathan", weapon: "hits you with his crusty toes", death: "It snaps in two.").first_or_create
+
+# level 6
+Monster.where(level: 6, strength: 55, exp: 1000, hp: 61, gold: 366, name: "Karma Police", weapon: "headbutts you", death: "It slides into a tree.  ").first_or_create
+Monster.where(level: 6, strength: 58, exp: 1700, hp: 125, gold: 341, name: "Angry Trashcan", weapon: "bites deep into your leg", death: "It flops down, lifeless.  ").first_or_create
+Monster.where(level: 6, strength: 62, exp: 1053, hp: 156, gold: 412, name: "Punk", weapon: "slaps you across the face", death: "His spirit storms off.  ").first_or_create
+Monster.where(level: 6, strength: 70, exp: 1608, hp: 70, gold: 272, name: "Animated Shorts", weapon: "grinds your flesh", death: "It slowly stops spinning.  ").first_or_create
+Monster.where(level: 6, strength: 75, exp: 1480, hp: 88, gold: 375, name: "Angry Cat", weapon: "pecks at yoru face", death: "It no longer caws into the night.  ").first_or_create
+Monster.where(level: 6, strength: 85, exp: 1805, hp: 133, gold: 521, name: "Pickle", weapon: "melts your skin", death: "It melts into the dirt.  ").first_or_create
+
+Monster.where(level: 6, strength: 70, exp: 2055, hp: 212, gold: 730, is_boss: true, name: "Golden Ape", weapon: "groans at you in disappointment", death: "He smiles as he collapses.").first_or_create
+Monster.where(level: 6, strength: 60, exp: 2700, hp: 280, gold: 820, is_boss: true, name: "Pure Mercury", weapon: "breaths acid at you", death: "It chokes on its own blood.").first_or_create
+Monster.where(level: 6, strength: 80, exp: 2820, hp: 156, gold: 1040, is_boss: true, name: "Jade", weapon: "hits you with his crusty toes", death: "It snaps in two.").first_or_create
