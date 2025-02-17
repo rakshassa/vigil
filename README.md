@@ -1,5 +1,11 @@
 # TODO
 
+bugs:
+- trinkets do not wrap to 2nd line
+- weapon prices must scale
+- win boss fight -> leave (no selection) causes day to fail resetting
+
+enhancements:
 - rspec tests
 - monsters and bosses through level 15
 - weapons and armor through level 15
