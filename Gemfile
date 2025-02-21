@@ -50,7 +50,7 @@ gem "jquery-hotkeys-rails", "0.7.9.1"
 # tracks flags in a model's integer column
 gem "flag_shih_tzu", "0.3.23"
 
-gem "stringio", "3.1.3"
+gem "stringio", "3.1.5"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
